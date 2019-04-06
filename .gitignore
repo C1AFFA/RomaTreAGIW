@@ -1,6 +1,7 @@
-.ipynb_checkpoints
-.idea
-venv
-__pycache__
-# data
-# input
+pages/
+.ipynb_checkpoints/
+pages-rotten/
+tables-rotten/
+rotten2000test.npy
+RomaTreAGIW.zip
+TagFrequency-RottenPages.csv
