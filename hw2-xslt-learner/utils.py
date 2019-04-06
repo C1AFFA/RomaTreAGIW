@@ -1,65 +1,64 @@
-import numpy as np
+import string
 from itertools import combinations
 from lxml import etree
+from structs import *
+
+'''
+This script provides utilities to manipulate features and xpaths
+'''
 
 
-class Page():
-    def __init__(self, filepath, golden_rule):
-        htmlparser = etree.HTMLParser()
-        tree = etree.parse(filepath, htmlparser)
-        self.DOM = tree
-        self.annotatedNode = AnnotatedNode(tree, golden_rule)
-        if self.annotatedNode:
-            self.isAnnotated = True
+def tag_feature(l, v):
+    return Feature(FEATURE_TYPES["TAG"], l, v)
+
+
+def id_feature(l, v):
+    # TODO implement me
+    pass
+
+
+def class_feature(l, v):
+    # TODO implement me
+    pass
+
+
+def generate_features(page, distance=1, node=None):
+    if page.is_annotated:
+        if distance == 1:
+            parent = page.annotated_node.parent
         else:
-            self.isAnnotated = False
+            parent = node.getparent()
 
-        self.featureList = []
-        self.features_attrib_types = ["id" , "class"]
-
-
-    def featuresGenerator(self, distance = 1, node = None):
-        if self.isAnnotated:
-            if (distance == 1):
-                parent = self.annotatedNode.parent
-            else:
-                parent = node.getparent()
-            if parent is not None:
-                self.featureList.append(Feature("tag", distance, parent.tag))
-                for f in self.features_attrib_types :
-                    if f in parent.attrib.keys():
-                        self.featureList.append(Feature(f, distance, parent.attrib[f]))
-                self.featuresGenerator((distance + 1), parent)
+        if parent is not None:
+            page.features.append(tag_feature(distance, parent.tag))
+            for f in page.features_attrib_types:
+                if f in parent.attrib.keys():
+                    page.features.append(Feature(f, distance, parent.attrib[f]))
+            generate_features(page, (distance + 1), parent)
 
 
-
-class AnnotatedNode():
-    def __init__(self, tree, golden_rule):
-        node = tree.xpath(golden_rule)
-        self.rule = golden_rule
-        if len(node) == 1:
-            self.node = node[0]
-            self.parent = self.node.getparent()
-        else:
-            self.node = None
-            self.parent = None
+def all_k_feature_subsets(feature_set, k):
+    return list(combinations(feature_set, k))
 
 
-class Feature():
-    def __init__(self, f_type, l, val):
-        self.ftype = f_type
-        self.l = l
-        self.value = val
-
-class Methods():
-
-    def featuresCombiner(featureList, k_subset):
-        return list(combinations(featureList, k_subset))
+def features_to_xpath(feature_set):
+    xpath = ""
+    # TODO implement me
+    # codice che genera l'XPATH dalle features
+    return xpath
 
 
-    def getXPathFromFeature(featuresList):
-        xpath = ""
+def feature_to_xpath(feature):
+    xpath = ""
+    # TODO implement me (am i global or local?)
+    return xpath
 
-        # codice che genera l'XPATH dalle features
 
-        return xpath
+def print_feature_list(feature_list):
+    str_list = ["{"]
+    for f in feature_list:
+        str_list.append(str(f))
+        str_list.append(",")
+    str_list.pop()
+    str_list.append("}")
+    print (''.join(str_list))

@@ -3,18 +3,17 @@ from utils import *
 class Metrics:
     def prec(page  , combinedXPath):
         precision = 0
-        if page.isAnnotated :
+        if page.is_annotated:
             nodesRetrieved = page.DOM.xpath(combinedXPath)
-            if page.annotatedNode.node in nodesRetrieved:
+            if page.annotated_node in nodesRetrieved:
                 precision = 1/len(nodesRetrieved)
         return precision
-
 
     def dist(fCombination):
         distance = 0
         for feature in fCombination:
-            if feature.l > distance:
-                distance = feature.l
+            if feature.level > distance:
+                distance = feature.level
         return distance
 
     def sup(self):
