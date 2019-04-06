@@ -33,11 +33,6 @@ class Page():
 
 
 
-
-    def featuresCombiner(self , k_subset):
-        return combinations(self.featureList, k_subset)
-
-
 class AnnotatedNode():
     def __init__(self, tree, golden_rule):
         node = tree.xpath(golden_rule)
@@ -56,3 +51,15 @@ class Feature():
         self.l = l
         self.value = val
 
+class Methods():
+
+    def featuresCombiner(featureList, k_subset):
+        return list(combinations(featureList, k_subset))
+
+
+    def getXPathFromFeature(featuresList):
+        xpath = ""
+
+        # codice che genera l'XPATH dalle features
+
+        return xpath
