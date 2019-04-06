@@ -1,7 +1,6 @@
-tmp
+data
+input
 .ipynb_checkpoints
 .idea
 venv
 __pycache__
-#data
-#input
