@@ -41,7 +41,7 @@ class FeatureTest(unittest.TestCase):
 
     def test_get_global_feature_set(self):
         print("------------TESTING GLOBAL FEATURE SET UNION -------------")
-        f1 = Feature("t1", 0, "v1")
+        f1 = Feature("t2", 0, "v2")
         f2 = Feature("t2", 0, "v2")
         f3 = Feature("t3", 0, "v3")
         f4 = Feature("t4", 0, "v4")
@@ -63,7 +63,7 @@ class FeatureTest(unittest.TestCase):
             Feature("id", 0, "*"),
             Feature("id", 0, "i1"),
             Feature("class", 0, "*"),
-            Feature("class", 0, "c1")
+            Feature("class", 4, "c1")
         ]
         for f in features_to_test:
             print(features_to_xpath([f]))
@@ -97,6 +97,19 @@ class FeatureTest(unittest.TestCase):
         sup = Metrics.sup(u_pages, "//header/h1")
         print(sup)
 
+    def test_list(self):
+        print("------------TESTING LIST-------------")
+        FL = set()
+
+        FL1 = [Feature("tag", 1, "h1"), Feature("tag", 2, "div"), Feature("tag", 3, "div"), Feature("tag", 4, "div"),
+               Feature("tag", 5, "div")]
+        FL2 = [Feature("tag", 1, "h1"), Feature("tag", 2, "div")]
+
+        for f in FL2:
+            if f not in FL1:
+                FL1.append(f)
+
+        print(FL1)
 
 if __name__ == '__main__':
     unittest.main()

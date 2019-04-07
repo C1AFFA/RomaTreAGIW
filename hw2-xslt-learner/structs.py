@@ -25,6 +25,15 @@ class Feature:
     def __repr__(self):
         return "(" + self.type + "," + str(self.level) + "," + str(self.value) + ")"
 
+    def __eq__(self, other):
+        if isinstance(other, Feature):
+            return (self.type == other.type) and (self.level == other.level) and (self.value == other.value)
+        else:
+            return False
+
+    def __hash__(self):
+        return hash(self.__repr__())
+
 
 class Page:
     # each page is referred only in the scope of one single attribute to extract

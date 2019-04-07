@@ -31,8 +31,8 @@ while len(C)>0 :
     L = []
     for subset in C:
         combined_xpath = features_to_xpath(subset)
-        current_prec = Metrics.prec(annotated_pages , combined_xpath)
-        current_sup = Metrics.sup(unannotated_pages , combined_xpath)
+        current_prec = Metrics.prec(annotated_pages, combined_xpath)
+        current_sup = Metrics.sup(unannotated_pages, combined_xpath)
         current_distance = Metrics.dist(subset)
         if current_prec > 0 :
             if current_prec < 1 or current_sup > 0 :
@@ -57,7 +57,11 @@ while len(C)>0 :
         if best_XPath is not None and ((current_distance > min_dist) or (current_distance == min_dist and current_sup <= max_sup)):
             L.remove(subset)
 
-    C = L
+    after_pruning_set = set()
+    for subset in L:
+        after_pruning_set = after_pruning_set.union(subset)
+    k += 1
+    C = all_k_feature_subsets(list(after_pruning_set), k)
 
 if best_XPath is not None:
     print("Best XPATH is : "+best_XPath)
