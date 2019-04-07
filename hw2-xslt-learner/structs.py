@@ -10,6 +10,8 @@ FEATURE_TYPES = {
     "CLASS": "class",
 }
 
+WILD_CARD = "*"
+
 
 class Feature:
     def __init__(self, t: str, l: int, v: str) -> object:
@@ -19,6 +21,7 @@ class Feature:
 
     def __str__(self):
         return "(" + self.type + "," + str(self.level) + "," + str(self.value) + ")"
+
     def __repr__(self):
         return "(" + self.type + "," + str(self.level) + "," + str(self.value) + ")"
 

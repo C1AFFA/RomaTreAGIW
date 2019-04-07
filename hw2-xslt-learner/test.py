@@ -22,18 +22,18 @@ class FeatureTest(unittest.TestCase):
         self.page = Page(filepath, "//h1")
 
         filepath2 = os.path.join(dirname, 'test-input\\sample.html')
-        self.smallpage1 = Page(filepath2, "//p")
+        self.smallpage1 = Page(filepath2, "//h1")
         self.smallpage2 = Page(filepath2, "//li")
 
     def test_generate_features(self):
-        generate_features(self.page)
+        self.page.features = generate_features(self.page)
         print("------------TESTING FEATURE GENERATION-------------")
         print_feature_list(self.page.features)
 
     def test_combine(self):
         print("------------TESTING FEATURE COMBINATION-------------")
-        generate_features(self.page)
         k = 2
+        self.page.features = generate_features(self.page)
         subsets = all_k_feature_subsets(self.page.features, k)
         print("Printing all " + str(k) + "-subsets:")
         for c in subsets:
@@ -51,11 +51,11 @@ class FeatureTest(unittest.TestCase):
         print(self.smallpage2.features)
         global_features = get_global_feature_set([self.smallpage1, self.smallpage2])
         print(global_features)
-        self.assertEqual(set([f1,f2,f3,f4]), global_features)
+        self.assertEqual(set([f1, f2, f3, f4]), global_features)
 
     def test_distance(self):
         print("------------TESTING FEATURE DISTANCE-------------")
-        generate_features(self.page)
+        self.page.features = generate_features(self.page)
         num_elements_per_set = 3
         subsets = all_k_feature_subsets(self.page.features, num_elements_per_set)
 

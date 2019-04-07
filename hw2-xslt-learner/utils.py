@@ -12,30 +12,46 @@ def tag_feature(l, v):
     return Feature(FEATURE_TYPES["TAG"], l, v)
 
 
-def id_feature(l, v):
-    # TODO implement me
-    pass
+def id_features(l, attributes):
+    features_to_add = []
+    t = FEATURE_TYPES["ID"]
+    if t in attributes.keys():
+        features_to_add.append(Feature(t, l, attributes[t]))
+        # uncomment to generate also wildcard feature for id
+        # features_to_add.append(Feature(t, l, WILD_CARD))
+    return features_to_add
 
 
-def class_feature(l, v):
-    # TODO implement me
-    pass
+def class_features(l, attributes):
+    features_to_add = []
+    t = FEATURE_TYPES["CLASS"]
+    if t in attributes.keys():
+        features_to_add.append(Feature(t, l, attributes[t]))
+        # uncomment to generate also wildcard feature for id
+        # features_to_add.append(Feature(t, l, WILD_CARD))
+    return features_to_add
 
-def generate_features(page, distance=0, node=None):
-    if page.is_annotated:
-        if distance == 0:
-            current_node = page.annotated_node.node
+
+# given a page with an annotated node, recursively visits all the nodes
+# from the annotated node to the root and generates all the features for the node.
+# returns the list of generated features
+def generate_features(page):
+    def generate_features_rec(features, distance, current_node):
+        if current_node is None:
+            return features
         else:
-            current_node = node.getparent()
-
-        if current_node is not None:
             # generate tag feature
-            page.features.append(tag_feature(distance, current_node.tag))
+            features.append(tag_feature(distance, current_node.tag))
+
             # generate id and class features
-            for f in page.features_attrib_types:
-                if f in current_node.attrib.keys():
-                    page.features.append(Feature(f, distance, current_node.attrib[f]))
-            generate_features(page, (distance + 1), current_node)
+            attributes = current_node.attrib
+            features.extend(id_features(distance, attributes))
+            features.extend(class_features(distance, attributes))
+
+            return generate_features_rec(features, (distance + 1), current_node.getparent())
+
+    if page.is_annotated:
+        return generate_features_rec([], 0, page.annotated_node.node)
 
 
 def all_k_feature_subsets(feature_set, k):
