@@ -65,18 +65,38 @@ def get_global_feature_set(page_list):
     return result
 
 
+
+
 def features_to_xpath(feature_set):
-    xpath = ""
-    # TODO implement me
-    # codice che genera l'XPATH dalle features
+    tokens = ["//"]
+    def feature_to_xpath(f):
+        if f.type == FEATURE_TYPES["TAG"]:
+            tokens.append(f.value)
+        elif f.type == FEATURE_TYPES["ID"] or f.type == FEATURE_TYPES["CLASS"]:
+            tokens.append("*[@")
+            if f.type == FEATURE_TYPES["ID"]:
+                tokens.append("id")
+            elif f.type == FEATURE_TYPES["CLASS"]:
+                tokens.append("class")
+            if not f.value == WILD_CARD:
+                tokens.append("="+f.value)
+            tokens.append("]")
+        if f.level > 0:
+            i=f.level
+            while i!=1:
+                tokens.append("/*")
+                i=i-1
+            tokens.append("/node()")
+
+
+        return ''.join(tokens)
+
+    if len(feature_set) == 1:
+        xpath = feature_to_xpath(feature_set[0])
+    else:
+        pass
+        # TODO COMBINE MULTIPLE FEATURES FROM SINGLE XPATH
     return xpath
-
-
-def feature_to_xpath(feature):
-    xpath = ""
-    # TODO implement me (am i global or local?)
-    return xpath
-
 
 def print_feature_list(feature_list):
     str_list = ["{"]

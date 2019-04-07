@@ -2,15 +2,16 @@ from metrics import *
 import os
 import glob
 
-
+# TODO SCRIVERE COMPONENTE CHE SMAZZA LE PAGINE E SEPARARLO DA APRIORI
 filename = os.path.join(os.path.dirname(__file__), 'test-input/0.html')
 page = Page(filename, "//h1")
-features_set = []
+# features_set = []
 
 annotated_pages = [page]
-for a_page in annotated_pages:
-    generate_features(a_page)
-    features_set.extend(a_page.features)
+# for a_page in annotated_pages:
+#     generate_features(a_page)
+#     features_set.extend(a_page.features)
+features_set = list(get_global_feature_set(annotated_pages))
 
 unannotated_pages = []
 unnotated_pages_paths = glob.glob(os.path.join(os.path.dirname(__file__), 'test-input/unannotated-pages/*'))
@@ -29,7 +30,7 @@ max_prec_XPath = None
 while len(C)>0 :
     L = []
     for subset in C:
-        combined_xpath = feature_to_xpath(subset)
+        combined_xpath = features_to_xpath(subset)
         current_prec = Metrics.prec(annotated_pages , combined_xpath)
         current_sup = Metrics.sup(unannotated_pages , combined_xpath)
         current_distance = Metrics.dist(subset)
@@ -49,7 +50,7 @@ while len(C)>0 :
                 max_sup = current_sup
                 max_prec = 1
     for subset in L :
-        combined_xpath = feature_to_xpath(subset)
+        combined_xpath = features_to_xpath(subset)
         current_prec = Metrics.prec(annotated_pages, combined_xpath)
         current_sup = Metrics.sup(unannotated_pages, combined_xpath)
         current_distance = Metrics.dist(subset)

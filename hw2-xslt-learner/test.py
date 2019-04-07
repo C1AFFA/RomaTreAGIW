@@ -53,6 +53,21 @@ class FeatureTest(unittest.TestCase):
         print(global_features)
         self.assertEqual(set([f1, f2, f3, f4]), global_features)
 
+    def test_features_to_xpath(self):
+        print("------------TESTING FEATURES TO XPATH -------------")
+        features_to_test = [
+            Feature("tag", 0, "div"),
+            Feature("tag", 1, "div"),
+            Feature("tag", 2, "div"),
+            Feature("tag", 3, "div"),
+            Feature("id", 0, "*"),
+            Feature("id", 0, "i1"),
+            Feature("class", 0, "*"),
+            Feature("class", 0, "c1")
+        ]
+        for f in features_to_test:
+            print(features_to_xpath([f]))
+
     def test_distance(self):
         print("------------TESTING FEATURE DISTANCE-------------")
         self.page.features = generate_features(self.page)
