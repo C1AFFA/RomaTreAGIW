@@ -1,13 +1,11 @@
-from typing import List
-
-from metrics import *
 from structs import *
+from metrics import *
+from combiner import *
 import os
 import glob
 import random
 import unittest
 
-from structs import Page
 
 '''
 This script SHOULD contain a unit test for each declared method in the project
