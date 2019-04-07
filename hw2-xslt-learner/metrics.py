@@ -20,14 +20,18 @@ class Metrics:
     def sup(unannotated_pages, combined_xpath):
         positives = 0
         sup = 0
+        more_than_one = False
+
         if (len(unannotated_pages) > 0):
             for page in unannotated_pages:
                 nodes_retrieved = page.DOM.xpath(combined_xpath)
                 if len(nodes_retrieved) > 0:
                     positives += 1
+                    if len(nodes_retrieved) > 1 :
+                        more_than_one = True
             sup = positives / len(unannotated_pages)
 
-        return sup
+        return [sup , more_than_one]
 
     def get_selected_nodes(page_list, combined_xpath):
         nodes_retrieved = []
