@@ -6,7 +6,6 @@ import glob
 import random
 import unittest
 
-
 '''
 This script SHOULD contain a unit test for each declared method in the project
 '''
@@ -51,8 +50,8 @@ class FeatureTest(unittest.TestCase):
         print(global_features)
         self.assertEqual(set([f1, f2, f3, f4]), global_features)
 
-    def test_features_to_xpath(self):
-        print("------------TESTING FEATURES TO XPATH -------------")
+    def test_single_feature_to_xpath(self):
+        print("------------TESTING SINGLE FEATURES TO XPATH -------------")
         features_to_test = [
             Feature("tag", 0, "div"),
             Feature("tag", 1, "div"),
@@ -65,6 +64,21 @@ class FeatureTest(unittest.TestCase):
         ]
         for f in features_to_test:
             print(features_to_xpath([f]))
+        # TODO write a proper assert
+        self.assertTrue(True)
+
+    def test_multiple_features_to_xpath(self):
+        print("------------TESTING MULTIPLE FEATURES TO XPATH -------------")
+        features_to_test = [
+            Feature("tag", 3, "div"),
+            Feature("class", 2, "c1"),
+            Feature("class", 2, "c2"),
+            Feature("id", 1, "*"),
+            Feature("id", 0, "*"),
+        ]
+        xpath = features_to_xpath(features_to_test)
+        print(xpath)
+        self.assertEqual(xpath, "//*[self::div]/*[@class='c1' or @class='c2']/*[@id]/node()[@id]")
 
     def test_distance(self):
         print("------------TESTING FEATURE DISTANCE-------------")
@@ -94,6 +108,8 @@ class FeatureTest(unittest.TestCase):
             u_pages.append(Page(p, "//tag_sbagliato"))
         sup = Metrics.sup(u_pages, "//header/h1")
         print(sup)
+        # TODO write a proper assert
+        self.assertTrue(True)
 
     def test_list(self):
         print("------------TESTING LIST-------------")
@@ -108,6 +124,9 @@ class FeatureTest(unittest.TestCase):
                 FL1.append(f)
 
         print(FL1)
+        # TODO write a proper assert
+        self.assertTrue(True)
+
 
 if __name__ == '__main__':
     unittest.main()
