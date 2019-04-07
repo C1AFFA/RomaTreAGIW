@@ -36,7 +36,9 @@ while len(C)>0 :
         if current_prec > 0 :
             if current_prec < 1 or current_sup > 0 :
                 L.extend(subset)
-                if current_prec > max_prec or (current_prec == max_prec and current_distance < min_dist) or (current_prec == max_prec and current_distance == min_dist and current_sup > max_sup) :
+                if current_prec > max_prec \
+                        or (current_prec == max_prec and current_distance < min_dist) \
+                        or (current_prec == max_prec and current_distance == min_dist and current_sup > max_sup):
                     max_prec = current_prec
                     max_prec_XPath = combined_xpath
                     min_dist = current_distance

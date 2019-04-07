@@ -17,8 +17,13 @@ This script SHOULD contain a unit test for each declared method in the project
 class FeatureTest(unittest.TestCase):
 
     def setUp(self):
-        filename = os.path.join(os.path.dirname(__file__), 'test-input\\0.html')
-        self.page = Page(filename, "//h1")
+        dirname = os.path.dirname(__file__)
+        filepath = os.path.join(dirname, 'test-input\\0.html')
+        self.page = Page(filepath, "//h1")
+
+        filepath2 = os.path.join(dirname, 'test-input\\sample.html')
+        self.smallpage1 = Page(filepath2, "//p")
+        self.smallpage2 = Page(filepath2, "//li")
 
     def test_generate_features(self):
         generate_features(self.page)
@@ -33,6 +38,20 @@ class FeatureTest(unittest.TestCase):
         print("Printing all " + str(k) + "-subsets:")
         for c in subsets:
             print_feature_list(c)
+
+    def test_get_global_feature_set(self):
+        print("------------TESTING GLOBAL FEATURE SET UNION -------------")
+        f1 = Feature("t1", 0, "v1")
+        f2 = Feature("t2", 0, "v2")
+        f3 = Feature("t3", 0, "v3")
+        f4 = Feature("t4", 0, "v4")
+        self.smallpage1.features = [f1, f2]
+        self.smallpage2.features = [f1, f3, f4]
+        print(self.smallpage1.features)
+        print(self.smallpage2.features)
+        global_features = get_global_feature_set([self.smallpage1, self.smallpage2])
+        print(global_features)
+        self.assertEqual(set([f1,f2,f3,f4]), global_features)
 
     def test_distance(self):
         print("------------TESTING FEATURE DISTANCE-------------")

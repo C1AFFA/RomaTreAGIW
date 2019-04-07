@@ -12,13 +12,15 @@ FEATURE_TYPES = {
 
 
 class Feature:
-    def __init__(self, t, l, v):
+    def __init__(self, t: str, l: int, v: str) -> object:
         self.type = t
         self.level = l
         self.value = v
 
     def __str__(self):
-        return "(" + self.type + ", " + str(self.level) + ", " + str(self.value) + ")"
+        return "(" + self.type + "," + str(self.level) + "," + str(self.value) + ")"
+    def __repr__(self):
+        return "(" + self.type + "," + str(self.level) + "," + str(self.value) + ")"
 
 
 class Page:

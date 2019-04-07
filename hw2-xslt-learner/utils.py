@@ -21,7 +21,6 @@ def class_feature(l, v):
     # TODO implement me
     pass
 
-
 def generate_features(page, distance=0, node=None):
     if page.is_annotated:
         if distance == 0:
@@ -44,11 +43,10 @@ def all_k_feature_subsets(feature_set, k):
 
 
 def get_global_feature_set(page_list):
-
-
-    # TODO implement me
-    # return feature_list
-    return None
+    result = set()
+    for page in page_list:
+        result = result.union(set(page.features))
+    return result
 
 
 def features_to_xpath(feature_set):
