@@ -22,6 +22,7 @@ class Feature:
 
 
 class Page:
+    # each page is referred only in the scope of one single attribute to extract
     def __init__(self, filepath, golden_rule):
         htmlparser = etree.HTMLParser()
         tree = etree.parse(filepath, htmlparser)
@@ -34,10 +35,11 @@ class Page:
 
 class AnnotatedNode:
     def __init__(self, tree, golden_rule):
-        node = tree.xpath(golden_rule)
+        retrieved_nodes = tree.xpath(golden_rule)
         self.rule = golden_rule
-        if len(node) == 1:
-            self.node = node[0]
+        # the golden rule should always select exactly one node
+        if len(retrieved_nodes) == 1:
+            self.node = retrieved_nodes[0]
             self.parent = self.node.getparent()
         else:
             self.node = None

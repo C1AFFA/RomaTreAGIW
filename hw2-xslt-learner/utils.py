@@ -22,23 +22,33 @@ def class_feature(l, v):
     pass
 
 
-def generate_features(page, distance=1, node=None):
+def generate_features(page, distance=0, node=None):
     if page.is_annotated:
-        if distance == 1:
-            parent = page.annotated_node.parent
+        if distance == 0:
+            current_node = page.annotated_node.node
         else:
-            parent = node.getparent()
+            current_node = node.getparent()
 
-        if parent is not None:
-            page.features.append(tag_feature(distance, parent.tag))
+        if current_node is not None:
+            # generate tag feature
+            page.features.append(tag_feature(distance, current_node.tag))
+            # generate id and class features
             for f in page.features_attrib_types:
-                if f in parent.attrib.keys():
-                    page.features.append(Feature(f, distance, parent.attrib[f]))
-            generate_features(page, (distance + 1), parent)
+                if f in current_node.attrib.keys():
+                    page.features.append(Feature(f, distance, current_node.attrib[f]))
+            generate_features(page, (distance + 1), current_node)
 
 
 def all_k_feature_subsets(feature_set, k):
     return list(combinations(feature_set, k))
+
+
+def get_global_feature_set(page_list):
+
+
+    # TODO implement me
+    # return feature_list
+    return None
 
 
 def features_to_xpath(feature_set):
@@ -61,4 +71,4 @@ def print_feature_list(feature_list):
         str_list.append(",")
     str_list.pop()
     str_list.append("}")
-    print (''.join(str_list))
+    print(''.join(str_list))

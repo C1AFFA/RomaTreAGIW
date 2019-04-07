@@ -8,6 +8,7 @@ import unittest
 This script SHOULD contain a unit test for each declared method in the project
 '''
 
+
 class FeatureTest(unittest.TestCase):
 
     def setUp(self):
@@ -22,7 +23,7 @@ class FeatureTest(unittest.TestCase):
     def test_combine(self):
         print("------------TESTING FEATURE COMBINATION-------------")
         generate_features(self.page)
-        k=2
+        k = 2
         combinations = all_k_feature_subsets(self.page.features, k)
         print("Printing all " + str(k) + "-subsets:")
         for c in combinations:
@@ -35,16 +36,17 @@ class FeatureTest(unittest.TestCase):
         combinations = all_k_feature_subsets(self.page.features, num_elements_per_set)
 
         random_combination = random.choice(combinations)
-        for i,f in enumerate(random_combination):
-            print("F"+str(i)+" - "+str(f.level))
+        for i, f in enumerate(random_combination):
+            print("F" + str(i) + " - " + str(f.level))
 
         distance = Metrics.dist(random_combination)
         print(distance)
 
     def test_precision(self):
         print("------------TESTING FEATURE PRECISION-------------")
-        precision = Metrics.prec(self.page , "//header/*/*")
+        precision = Metrics.prec(self.page, "//header/*/*")
         print(precision)
+
 
 if __name__ == '__main__':
     unittest.main()
