@@ -29,7 +29,7 @@ class FeatureTest(unittest.TestCase):
 
     def test_combine(self):
         print("------------TESTING FEATURE COMBINATION-------------")
-        k = 2
+        k = 1
         self.page.features = generate_features(self.page)
         subsets = all_k_feature_subsets(self.page.features, k)
         print("Printing all " + str(k) + "-subsets:")
