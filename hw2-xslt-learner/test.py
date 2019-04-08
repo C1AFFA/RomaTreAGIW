@@ -1,6 +1,6 @@
 from structs import *
 from metrics import *
-from combiner import *
+from xpath_combiner import *
 import os
 import glob
 import random
@@ -15,10 +15,10 @@ class FeatureTest(unittest.TestCase):
 
     def setUp(self):
         dirname = os.path.dirname(__file__)
-        filepath = os.path.join(dirname, 'test-input\\0.html')
+        filepath = os.path.join(dirname, 'test-input/small/0.html')
         self.page = Page(filepath, "//h1")
 
-        filepath2 = os.path.join(dirname, 'test-input\\sample.html')
+        filepath2 = os.path.join(dirname, 'test-input/small/sample.html')
         self.smallpage1 = Page(filepath2, "//h1")
         self.smallpage2 = Page(filepath2, "//li")
 
@@ -95,7 +95,7 @@ class FeatureTest(unittest.TestCase):
 
     def test_precision(self):
         print("------------TESTING FEATURE PRECISION-------------")
-        filename = os.path.join(os.path.dirname(__file__), 'test-input\\example_basidati.html')
+        filename = os.path.join(os.path.dirname(__file__), 'test-input/small/example_basidati.html')
         page_list = [self.page, Page(filename, "/html/body/h2")]
         precision = Metrics.prec(page_list, "//div/h1|//body/*")
         print(precision)

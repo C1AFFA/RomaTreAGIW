@@ -60,3 +60,21 @@ class AnnotatedNode:
         else:
             self.node = None
             self.parent = None
+
+
+class Attribute:
+    def __init__(self, name, golden_rule, learnt_rule=None, ann_pages_indexes=None):
+        self.name = name
+        self.golden_rule = golden_rule
+        self.learnt_rule = learnt_rule
+        self.ann_pages = ann_pages_indexes
+
+    def __str__(self):
+        return "{" + "name:" + self.name + \
+               ", golden-rule-xpath:" + self.golden_rule + \
+               ", annotated pages:" + str(self.ann_pages_indexes) + "}"
+
+    def __repr__(self):
+        return "{" + "name:" + self.name + \
+               ", golden-rule-xpath:" + self.golden_rule + \
+               ", annotated pages:" + str(self.ann_pages_indexes) + "}"

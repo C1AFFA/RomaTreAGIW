@@ -77,7 +77,7 @@ def print_feature_list(feature_list):
     print(''.join(str_list))
 
 
-def pretty_print(input_list, tab_size=4):
+def pretty_print(input_list, tab_size=3):
     for i, element in enumerate(input_list):
         if (i+1) % tab_size == 0:
             print(element)

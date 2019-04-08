@@ -1,9 +1,8 @@
 from metrics import *
-from combiner import *
+from xpath_combiner import *
 from utils import *
 import os
 import glob
-
 
 # small test
 #ANNOTATED_PAGES_PATH = 'test-input/small/0.html'
@@ -17,8 +16,7 @@ GOLDEN_RULE = "//*[@itemprop='name']"
 #GOLDEN_RULE = "//*[@annotation='here']"
 
 
-# TODO SCRIVERE COMPONENTE CHE SMAZZA LE PAGINE E SEPARARLO DA APRIORI
-def prepare_input():
+def test_learner():
     # prepare annotated pages
     annotated_pages = []
     annotated_pages_paths = glob.glob(os.path.join(os.path.dirname(__file__), ANNOTATED_PAGES_PATH))
@@ -39,7 +37,7 @@ def prepare_input():
     #     print(f)
 
     # execute apriori algorithm
-    learn_xslt_rule(annotated_pages,unannotated_pages,features_set)
+    learn_xslt_rule(annotated_pages, unannotated_pages, features_set)
 
 
 def learn_xslt_rule(ann_pages, unann_pages, global_features):
@@ -49,7 +47,6 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
     print("Unannotated pages " + str(len(unann_pages)))
     print("Global feature set [" + str(len(global_features)) + "]:")
     pretty_print(global_features)
-    print('-' * 100)
 
     k = 1
     C = all_k_feature_subsets(global_features, k)
@@ -61,13 +58,13 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
 
     while len(C) > 0:
         L = []
-        print("**** Starting iteration " + str(k) + "****")
+        print("**** Starting iteration " + str(k))
 
-        print('-' * 100)
-        print("[SUBSETS SIZE: " + str(k) + "]")
-        print("C contains the current [" + str(len(C)) + "] subsets:")
+        print('-' * 70)
+        print("[SUBSETS SIZE: " + str(k) + "]"
+              + " C contains the current [" + str(len(C)) + "] subsets:")
         pretty_print(C)
-        print('-' * 100)
+        print('-' * 70)
 
         for i, subset in enumerate(C):
             print("*** Subset " + str(i+1) + ":" + str(subset))
@@ -104,10 +101,10 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
                     print("\tCurrent Distance : " + str(current_distance))
                     print("\tCurrent Support : " + str(current_sup))
 
-        print('-' * 100)
+        print('-' * 70)
         print("[BEFORE PRUNING] L contains the current [" + str(len(L)) + "] subsets:")
         pretty_print(L)
-        print('-' * 100)
+        print('-' * 70)
 
         subsets_to_remember = []
         for j, subset in enumerate(L):
@@ -125,10 +122,10 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
             else:
                 print("\t\t Pruning " + str(j+1))
 
-        print('-' * 100)
+        print('-' * 70)
         print("[AFTER PRUNING] L contains the current subsets:")
         pretty_print(subsets_to_remember)
-        print('-' * 100)
+        print('-' * 70)
 
         after_pruning_set = set()
         for subset in subsets_to_remember:
@@ -136,12 +133,14 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
         k += 1
         C = all_k_feature_subsets(list(after_pruning_set), k)
 
-    print("****** [END] C is empty. Showing results:")
+    print("[END] C is empty: terminating.")
     if best_XPath is not None:
-        print("\t\tBest XPATH is : " + str(best_XPath))
+        print("[END] Best XPATH is : " + str(best_XPath) + "\n" + '-' * 100)
+        return best_XPath
     else:
-        print("\t\tThe maximum precision XPATH is : " + str(max_prec_XPath))
+        print("[END] The maximum precision XPATH is : " + str(max_prec_XPath) + "\n" + '-' * 100)
+        return max_prec_XPath
 
 
 if __name__ == '__main__':
-    prepare_input()
+    test_learner()
