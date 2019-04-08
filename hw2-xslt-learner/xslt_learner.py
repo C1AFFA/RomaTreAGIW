@@ -1,28 +1,43 @@
 from metrics import *
 from combiner import *
+from utils import *
 import os
 import glob
 
 
+# small test
+ANNOTATED_PAGES_PATH = 'test-input/small/0.html'
+UNANNOTATED_PAGES_PATH = 'test-input/small/unann/*'
+GOLDEN_RULE = "//h1"
+
+# slightly bigger test
+# ANNOTATED_PAGES_PATH = 'test-input/annotated-pages/*'
+# UNANNOTATED_PAGES_PATH = 'test-input/unannotated-pages/*'
+# GOLDEN_RULE = "//*[@itemprop='name']"
+
+
 # TODO SCRIVERE COMPONENTE CHE SMAZZA LE PAGINE E SEPARARLO DA APRIORI
 def prepare_input():
-    filename = os.path.join(os.path.dirname(__file__), 'test-input/__small/0.html')
-    page = Page(filename, "//h1")
-    annotated_pages = [page]
+    # prepare annotated pages
+    annotated_pages = []
+    annotated_pages_paths = glob.glob(os.path.join(os.path.dirname(__file__), ANNOTATED_PAGES_PATH))
+    for path in annotated_pages_paths:
+        annotated_pages.append(Page(path, GOLDEN_RULE))
 
-    # annotated_pages = []
-    # annotated_pages_paths = glob.glob(os.path.join(os.path.dirname(__file__), 'test-input/annotated-pages/*'))
-    # for path in annotated_pages_paths:
-    #     annotated_pages_paths.append(Page(path, "//*[@itemprop='name']"))
-
+    # prepare unannotated pages
     unannotated_pages = []
-    unnotated_pages_paths = glob.glob(os.path.join(os.path.dirname(__file__), 'test-input/__small/__unann/*'))
-    for path in unnotated_pages_paths:
-        unannotated_pages.append(Page(path, "//pippo"))
+    unannotated_pages_paths = glob.glob(os.path.join(os.path.dirname(__file__), UNANNOTATED_PAGES_PATH))
+    for path in unannotated_pages_paths:
+        unannotated_pages.append(Page(path, "//foo"))  # TODO fix dummy var usage
 
+    # prepare feature set
+    for page in annotated_pages:
+        page.features = generate_features(page)
     features_set = list(get_global_feature_set(annotated_pages))
     # for f in features_set:
     #     print(f)
+
+    # execute apriori algorithm
     learn_xslt_rule(annotated_pages,unannotated_pages,features_set)
 
 
@@ -37,14 +52,24 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
     max_prec_XPath = None
 
     while len(C) > 0:
-        print(k)
         L = []
-        for subset in C:
+        print("**** Starting iteration " + str(k) + "****")
+
+        print('-' * 100)
+        print("[SUBSETS SIZE: " + str(k) + "]")
+        print("C contains the current subsets:")
+        for a, b, c, d in zip(*[iter(C)]*4):
+            print(a, b, c, d)
+        print('-' * 100)
+
+        for i, subset in enumerate(C):
+            print("** Iterating subset " + str(i) + ":" + str(subset))
             combined_xpath = features_to_xpath(subset)
             current_prec = Metrics.prec(ann_pages, combined_xpath)
             current_sup, more_than_one = Metrics.sup(unann_pages, combined_xpath)
             current_distance = Metrics.dist(subset)
             if current_prec > 0:
+                # TODO figure out what is the correct condition
                 # if current_prec < 1 or more_than_one:
                 if current_prec < 1:
                     if more_than_one:
@@ -56,53 +81,62 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
                             max_prec = current_prec
                             min_dist = current_distance
                             max_sup = current_sup
-                            print("----- Updating for subset : ------")
-                            print(subset)
-                            print("Updating max_prec_XPath: " + combined_xpath)
-                            print("Current Precision : " + str(current_prec))
-                            print("Current Distance : " + str(current_distance))
-                            print("Current Support : " + str(current_sup))
+                            print("\t----- Updating for subset : ------")
+                            print("\tUpdating max_prec_XPath: " + combined_xpath)
+                            print("\tCurrent Precision : " + str(current_prec))
+                            print("\tCurrent Distance : " + str(current_distance))
+                            print("\tCurrent Support : " + str(current_sup))
                 elif current_distance < min_dist or (current_distance < min_dist and current_sup > max_sup):
                     best_XPath = combined_xpath
                     max_prec = 1
                     min_dist = current_distance
                     max_sup = current_sup
-                    print("----- Updating BEST for subset : ------")
-                    print(subset)
-                    print("Updating best_XPath: " + combined_xpath)
-                    print("Current Precision : " + str(current_prec))
-                    print("Current Distance : " + str(current_distance))
-                    print("Current Support : " + str(current_sup))
+                    print("\t----- Updating BEST for subset : ------")
+                    print("\tUpdating best_XPath: " + combined_xpath)
+                    print("\tCurrent Precision : " + str(current_prec))
+                    print("\tCurrent Distance : " + str(current_distance))
+                    print("\tCurrent Support : " + str(current_sup))
+            else:
+                print("** Subset " + str(i) + " has lower precision than local max. Skipping")
 
-        print("L before pruning :")
-        print(L)
+        print('-' * 100)
+        print("[BEFORE PRUNING] L contains the current subsets:")
+        for a, b, c, d in zip(*[iter(L)]*4):
+            print(a, b, c, d)
+        print('-' * 100)
+
         subsets_to_remember = []
-        for subset in L:
+        for j, subset in enumerate(L):
             combined_xpath = features_to_xpath(subset)
-            # current_prec = Metrics.prec(ann_pages, combined_xpath)
+            # current_prec = Metrics.prec(ann_pages, combined_xpath) # unused
             current_sup, more_than_one = Metrics.sup(unann_pages, combined_xpath)
             current_distance = Metrics.dist(subset)
 
             if not ((best_XPath is not None)
-                    # and vs or? we don't really know!!!
+                    # TODO figure out what is the correct condition
                     or ((current_distance > min_dist) or (current_distance == min_dist and current_sup <= max_sup))):
                     # and ((current_distance > min_dist) or (current_distance == min_dist and current_sup <= max_sup))):
                 subsets_to_remember.append(subset)
+            else:
+                print("\t\t ** Pruning subset " + str(j))
 
-        print("L after pruning :")
-        print(subsets_to_remember)
+        print('-' * 100)
+        print("[BEFORE PRUNING] L contains the current subsets:")
+        for a, b, c, d in zip(*[iter(subsets_to_remember)]*4):
+            print(a, b, c, d)
+        print('-' * 100)
 
         after_pruning_set = set()
         for subset in subsets_to_remember:
             after_pruning_set = after_pruning_set.union(subset)
-        # print(after_pruning_set)
         k += 1
         C = all_k_feature_subsets(list(after_pruning_set), k)
 
+    print("**** C is empty. Showing results:")
     if best_XPath is not None:
-        print("Best XPATH is : " + str(best_XPath))
+        print("\tBest XPATH is : " + str(best_XPath))
     else:
-        print("The maximum precision XPATH is : " + str(max_prec_XPath))
+        print("\tThe maximum precision XPATH is : " + str(max_prec_XPath))
 
 
 if __name__ == '__main__':
