@@ -6,14 +6,15 @@ import glob
 
 
 # small test
-ANNOTATED_PAGES_PATH = 'test-input/small/0.html'
-UNANNOTATED_PAGES_PATH = 'test-input/small/unann/*'
-GOLDEN_RULE = "//h1"
+#ANNOTATED_PAGES_PATH = 'test-input/small/0.html'
+#UNANNOTATED_PAGES_PATH = 'test-input/small/unann/*'
+#GOLDEN_RULE = "//h1"
 
-# slightly bigger test
-# ANNOTATED_PAGES_PATH = 'test-input/annotated-pages/*'
-# UNANNOTATED_PAGES_PATH = 'test-input/unannotated-pages/*'
-# GOLDEN_RULE = "//*[@itemprop='name']"
+#slightly bigger test
+ANNOTATED_PAGES_PATH = 'test-input/annotated-pages/*'
+UNANNOTATED_PAGES_PATH = 'test-input/unannotated-pages/*'
+GOLDEN_RULE = "//*[@itemprop='name']"
+#GOLDEN_RULE = "//*[@annotation='here']"
 
 
 # TODO SCRIVERE COMPONENTE CHE SMAZZA LE PAGINE E SEPARARLO DA APRIORI
