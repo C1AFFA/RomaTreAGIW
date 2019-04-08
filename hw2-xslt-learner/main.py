@@ -66,7 +66,7 @@ def main():
         annotated_pages_training = []
         unannotated_pages = []
         annotated_pages_test = []
-        for path in annotated_pages_paths:
+        for path in annotated_pages_paths_training:
             annotated_pages_training.append(Page(path, attr.golden_rule))
         for path in annotated_pages_paths_test:
             annotated_pages_test.append(Page(path, "//foo"))
@@ -75,7 +75,7 @@ def main():
 
         for page in annotated_pages_training:
             page.features = generate_features(page)
-            features_set = list(get_global_feature_set(annotated_pages_training))
+        features_set = list(get_global_feature_set(annotated_pages_training))
 
         # TODO UNCOMMENT TO RUN LEARNER
         # attr.learnt_rule = learn_xslt_rule(annotated_pages_training, unannotated_pages, features_set)
