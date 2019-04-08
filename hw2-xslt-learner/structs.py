@@ -38,8 +38,9 @@ class Feature:
 class Page:
     # each page is referred only in the scope of one single attribute to extract
     def __init__(self, filepath, golden_rule):
-        htmlparser = etree.HTMLParser()
-        tree = etree.parse(filepath, htmlparser)
+        encoded_html = open(filepath).read().encode('utf-8')
+        utf8_parser = etree.HTMLParser()
+        tree = etree.fromstring(encoded_html, parser=utf8_parser)
         self.DOM = tree
         self.annotated_node = AnnotatedNode(tree, golden_rule)
         self.is_annotated = True if self.annotated_node else False

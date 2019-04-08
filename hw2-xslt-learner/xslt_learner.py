@@ -6,14 +6,14 @@ import glob
 
 
 # small test
-ANNOTATED_PAGES_PATH = 'test-input/small/0.html'
-UNANNOTATED_PAGES_PATH = 'test-input/small/unann/*'
-GOLDEN_RULE = "//h1"
+# ANNOTATED_PAGES_PATH = 'test-input/small/0.html'
+# UNANNOTATED_PAGES_PATH = 'test-input/small/unann/*'
+# GOLDEN_RULE = "//h1"
 
 # slightly bigger test
-# ANNOTATED_PAGES_PATH = 'test-input/annotated-pages/*'
-# UNANNOTATED_PAGES_PATH = 'test-input/unannotated-pages/*'
-# GOLDEN_RULE = "//*[@itemprop='name']"
+ANNOTATED_PAGES_PATH = 'test-input/annotated-pages/*'
+UNANNOTATED_PAGES_PATH = 'test-input/unannotated-pages/*'
+GOLDEN_RULE = "//*[@itemprop='name']"
 
 
 # TODO SCRIVERE COMPONENTE CHE SMAZZA LE PAGINE E SEPARARLO DA APRIORI
@@ -107,6 +107,7 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
 
         subsets_to_remember = []
         for j, subset in enumerate(L):
+            print("** Iterating subset " + str(j) + ":" + str(subset))
             combined_xpath = features_to_xpath(subset)
             # current_prec = Metrics.prec(ann_pages, combined_xpath) # unused
             current_sup, more_than_one = Metrics.sup(unann_pages, combined_xpath)
@@ -118,10 +119,10 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
                     # and ((current_distance > min_dist) or (current_distance == min_dist and current_sup <= max_sup))):
                 subsets_to_remember.append(subset)
             else:
-                print("\t\t ** Pruning subset " + str(j))
+                print("\t** Pruning subset " + str(j))
 
         print('-' * 100)
-        print("[BEFORE PRUNING] L contains the current subsets:")
+        print("[AFTER PRUNING] L contains the current subsets:")
         for a, b, c, d in zip(*[iter(subsets_to_remember)]*4):
             print(a, b, c, d)
         print('-' * 100)
