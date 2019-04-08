@@ -38,8 +38,8 @@ class Feature:
 class Page:
     # each page is referred only in the scope of one single attribute to extract
     def __init__(self, filepath, golden_rule):
-        encoded_html = open(filepath, encoding="utf-8").read().encode('utf-8')
-        # encoded_html = open(filepath).read().encode('utf-8')
+        # encoded_html = open(filepath, encoding="utf-8").read().encode('utf-8')
+        encoded_html = open(filepath).read().encode('utf-8') # use this for imdb.com
         utf8_parser = etree.HTMLParser()
         tree = etree.fromstring(encoded_html, parser=utf8_parser)
         self.DOM = tree

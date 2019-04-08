@@ -48,8 +48,7 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
     print("Annotated pages: " + str(len(ann_pages)))
     print("Unannotated pages " + str(len(unann_pages)))
     print("Global feature set [" + str(len(global_features)) + "]:")
-    for a, b, c, d in zip(*[iter(global_features)]*4):
-        print(a, b, c, d)
+    pretty_print(global_features)
     print('-' * 100)
 
     k = 1
@@ -67,8 +66,7 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
         print('-' * 100)
         print("[SUBSETS SIZE: " + str(k) + "]")
         print("C contains the current [" + str(len(C)) + "] subsets:")
-        for a, b, c, d in zip(*[iter(C)]*4):
-            print(a, b, c, d)
+        pretty_print(C)
         print('-' * 100)
 
         for i, subset in enumerate(C):
@@ -108,7 +106,7 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
 
         print('-' * 100)
         print("[BEFORE PRUNING] L contains the current [" + str(len(L)) + "] subsets:")
-        print(L)
+        pretty_print(L)
         print('-' * 100)
 
         subsets_to_remember = []
@@ -129,8 +127,7 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
 
         print('-' * 100)
         print("[AFTER PRUNING] L contains the current subsets:")
-        for a, b, c, d in zip(*[iter(subsets_to_remember)]*4):
-            print(a, b, c, d)
+        pretty_print(subsets_to_remember)
         print('-' * 100)
 
         after_pruning_set = set()

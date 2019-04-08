@@ -75,3 +75,12 @@ def print_feature_list(feature_list):
         str_list.pop()
         str_list.append("}")
     print(''.join(str_list))
+
+
+def pretty_print(input_list, tab_size=4):
+    for i, element in enumerate(input_list):
+        if (i+1) % tab_size == 0:
+            print(element)
+        elif i != len(input_list):
+            print(element, end=' ')
+    print(' ')
