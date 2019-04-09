@@ -47,7 +47,6 @@ class Page:
         self.annotated_node = AnnotatedNode(tree, golden_rule)
         self.is_annotated = True if self.annotated_node else False
         self.features = []
-        self.features_attrib_types = ["id", "class"]
 
 
 class AnnotatedNode:

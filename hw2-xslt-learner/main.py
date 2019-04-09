@@ -34,8 +34,7 @@ def main():
 
     print("\nWe will generate the following feature types:\n" + str(FEATURE_TYPES.keys()) + "\n")
 
-    # TODO REMOVE LIST SLICING TO ITERATE ON ALL ATTRIBUTES
-    for attr in golden_attributes:
+    for attr in golden_attributes[:3]:
         print("=" * 100
               + "\nLearning attribute: " + attr.name
               + "\n(annotated xpath:" + attr.golden_rule + ")\n"
@@ -78,16 +77,14 @@ def main():
             page.features = generate_features(page)
         features_set = list(get_global_feature_set(annotated_pages_training))
 
-        # TODO UNCOMMENT TO RUN LEARNER
         attr.learnt_rule = learn_xslt_rule(annotated_pages_training, unannotated_pages, features_set)
-        #attr.learnt_rule = "//*[@itemprop='jobTitle'][1]" # TODO TEMPORARY HARDCODED RULE
+        #attr.learnt_rule = "//*[@itemprop='jobTitle'][1]"
 
         print("=" * 3 + " Learnt xpath: " + attr.learnt_rule)
         print("=" * 3 + " Annotated xpath was " + attr.golden_rule)
 
         print("\n\n[STARTING TEST PHASE]")
 
-        # TODO SOMETHING BROKE HERE (help!!!)
         precision, recall = evaluate(annotated_pages_test, attr.learnt_rule, attr.golden_rule)
         print("Precision for attribute " + attr.name + ": " + str(precision))
         print("Recall for attribute " + attr.name + ": " + str(recall))
