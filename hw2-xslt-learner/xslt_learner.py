@@ -12,7 +12,8 @@ import glob
 #slightly bigger test
 ANNOTATED_PAGES_PATH = 'test-input/annotated-pages/*'
 UNANNOTATED_PAGES_PATH = 'test-input/unannotated-pages/*'
-GOLDEN_RULE = "//*[@itemprop='name']"
+GOLDEN_RULE = "//*[@itemprop=\'birthDate\']/a[1]"
+#GOLDEN_RULE = "//*[@itemprop='name']"
 #GOLDEN_RULE = "//*[@annotation='here']"
 
 
@@ -63,19 +64,21 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
         print('-' * 70)
         print("[SUBSETS SIZE: " + str(k) + "]"
               + " C contains the current [" + str(len(C)) + "] subsets:")
-        pretty_print(C)
+        #pretty_print(C)
         print('-' * 70)
 
         for i, subset in enumerate(C):
-            print("*** Subset " + str(i+1) + ":" + str(subset))
+
             combined_xpath = features_to_xpath(subset)
             current_prec = Metrics.prec(ann_pages, combined_xpath)
             current_sup, more_than_one = Metrics.sup(unann_pages, combined_xpath)
             current_distance = Metrics.dist(subset)
+            #print("*** Subset " + str(i + 1) + ":" + str(subset)+" - precizion: "+str(current_prec)+" - sup: "+str(current_prec)+" - mto: "+str(more_than_one))
+            print("*** Subset xPATH " + str(combined_xpath) + " - precizion: "+str(current_prec)+" - sup: "+str(current_sup)+" - mto: "+str(more_than_one))
             if current_prec > 0:
                 # TODO figure out what is the correct condition
-                if current_prec < 1 or more_than_one:
-                # if current_prec < 1:
+                if (current_prec < 1 or more_than_one):
+                #if current_prec < 1:
                 #     if more_than_one:
                         L.append(subset)
                         if current_prec > max_prec \
@@ -90,7 +93,7 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
                             print("\tCurrent Precision : " + str(current_prec))
                             print("\tCurrent Distance : " + str(current_distance))
                             print("\tCurrent Support : " + str(current_sup))
-                elif current_distance < min_dist or (current_distance < min_dist and current_sup > max_sup):
+                elif current_distance < min_dist or (current_distance == min_dist and current_sup >= max_sup):
                     best_XPath = combined_xpath
                     max_prec = 1
                     min_dist = current_distance
@@ -103,12 +106,13 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
 
         print('-' * 70)
         print("[BEFORE PRUNING] L contains the current [" + str(len(L)) + "] subsets:")
-        pretty_print(L)
+        print(len(L))
+        #pretty_print(L)
         print('-' * 70)
 
         subsets_to_remember = []
         for j, subset in enumerate(L):
-            print("*** Subset " + str(j+1) + ":" + str(subset))
+            #print("*** Subset " + str(j+1) + ":" + str(subset))
             combined_xpath = features_to_xpath(subset)
             # current_prec = Metrics.prec(ann_pages, combined_xpath) # unused
             current_sup, more_than_one = Metrics.sup(unann_pages, combined_xpath)
@@ -116,21 +120,24 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
 
             if not ((best_XPath is not None)
                     # TODO figure out what is the correct condition
-                    or ((current_distance > min_dist) or (current_distance == min_dist and current_sup <= max_sup))):
+                    or ((current_distance > min_dist) or (current_distance == min_dist and current_sup < max_sup))):
                     # and ((current_distance > min_dist) or (current_distance == min_dist and current_sup <= max_sup))):
                 subsets_to_remember.append(subset)
             else:
-                print("\t\t Pruning " + str(j+1))
+                pass
+                #print("\t\t Pruning " + str(j+1))
 
         print('-' * 70)
         print("[AFTER PRUNING] L contains the current subsets:")
-        pretty_print(subsets_to_remember)
+        print(len(subsets_to_remember))
+        #pretty_print(subsets_to_remember)
         print('-' * 70)
 
         after_pruning_set = set()
         for subset in subsets_to_remember:
             after_pruning_set = after_pruning_set.union(subset)
         k += 1
+        print("New Feature Set has: "+str(len(after_pruning_set)))
         C = all_k_feature_subsets(list(after_pruning_set), k)
 
     print("[END] C is empty: terminating.")

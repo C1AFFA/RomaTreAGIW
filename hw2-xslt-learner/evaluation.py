@@ -5,7 +5,8 @@ def evaluate(test_pages, learnt_rule, golden_rule):
 
     positive_nodes = []
     retrieved_nodes = []
-
+    precision = 0
+    recall = 0
     for t_page in test_pages:
         gr_nodes = t_page.DOM.xpath(golden_rule)
         learnt_nodes = t_page.DOM.xpath(learnt_rule)
@@ -18,8 +19,8 @@ def evaluate(test_pages, learnt_rule, golden_rule):
     print(retrieved_nodes)
     print(positives_retrieved_nodes)
     print("---------------------")
-
-    precision = len(positives_retrieved_nodes) / len(retrieved_nodes)
-    recall = len(positives_retrieved_nodes) / len(positive_nodes)
+    if len(positive_nodes)>0:
+        precision = len(positives_retrieved_nodes) / len(retrieved_nodes)
+        recall = len(positives_retrieved_nodes) / len(positive_nodes)
 
     return precision, recall

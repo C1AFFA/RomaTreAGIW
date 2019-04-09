@@ -8,20 +8,21 @@ PAGES_PATH = DIR_NAME / "input/pages/"
 GOLDEN_RULES = DIR_NAME / "input/goldenRules.txt"
 REPRESENTATIVES = "input/representatives-"
 
-TRAINING_SET_SIZE = 4  # maximum is 8
+TRAINING_SET_SIZE = 3  # maximum is 8
 
 
 def main():
     golden_attributes = []
-    with open(GOLDEN_RULES) as file:
+    print(GOLDEN_RULES)
+    with open(str(GOLDEN_RULES)) as file:
         for line in file:
             values = line.split("\t")
-            attribute = Attribute(values[0], values[1].replace("/text()", "").strip())
+            attribute = Attribute(values[0], prepare_golden_rule(values[1].replace("/text()", "").strip()))
             golden_attributes.append(attribute)
 
     for attribute in golden_attributes:
         filename = REPRESENTATIVES + attribute.name + ".txt"
-        with open(DIR_NAME / filename) as file:
+        with open(str(DIR_NAME / filename)) as file:
             indexes = []
             for line in file:
                 indexes.append(line.strip())
@@ -34,7 +35,7 @@ def main():
     print("\nWe will generate the following feature types:\n" + str(FEATURE_TYPES.keys()) + "\n")
 
     # TODO REMOVE LIST SLICING TO ITERATE ON ALL ATTRIBUTES
-    for attr in golden_attributes[:1]:
+    for attr in golden_attributes:
         print("=" * 100
               + "\nLearning attribute: " + attr.name
               + "\n(annotated xpath:" + attr.golden_rule + ")\n"
@@ -67,19 +68,19 @@ def main():
         unannotated_pages = []
         annotated_pages_test = []
         for path in annotated_pages_paths_training:
-            annotated_pages_training.append(Page(path, attr.golden_rule))
+            annotated_pages_training.append(Page(str(path), attr.golden_rule))
         for path in annotated_pages_paths_test:
-            annotated_pages_test.append(Page(path, "//foo"))
+            annotated_pages_test.append(Page(str(path), "//foo"))
         for path in unannotated_pages_paths:
-            unannotated_pages.append(Page(path, "//foo"))
+            unannotated_pages.append(Page(str(path), "//foo"))
 
         for page in annotated_pages_training:
             page.features = generate_features(page)
         features_set = list(get_global_feature_set(annotated_pages_training))
 
         # TODO UNCOMMENT TO RUN LEARNER
-        # attr.learnt_rule = learn_xslt_rule(annotated_pages_training, unannotated_pages, features_set)
-        attr.learnt_rule = "//h1" # TODO TEMPORARY HARDCODED RULE
+        attr.learnt_rule = learn_xslt_rule(annotated_pages_training, unannotated_pages, features_set)
+        #attr.learnt_rule = "//*[@itemprop='jobTitle'][1]" # TODO TEMPORARY HARDCODED RULE
 
         print("=" * 3 + " Learnt xpath: " + attr.learnt_rule)
         print("=" * 3 + " Annotated xpath was " + attr.golden_rule)
@@ -87,9 +88,9 @@ def main():
         print("\n\n[STARTING TEST PHASE]")
 
         # TODO SOMETHING BROKE HERE (help!!!)
-        precision, recall = evaluate(annotated_pages_test, attr.learnt_rule, attribute.golden_rule)
-        print("Precision for attribute " + attribute.name + ": " + str(precision))
-        print("Recall for attribute " + attribute.name + ": " + str(recall))
+        precision, recall = evaluate(annotated_pages_test, attr.learnt_rule, attr.golden_rule)
+        print("Precision for attribute " + attr.name + ": " + str(precision))
+        print("Recall for attribute " + attr.name + ": " + str(recall))
 
 
 if __name__ == '__main__':
