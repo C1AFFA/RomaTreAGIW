@@ -107,10 +107,10 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
 
         print('-' * 70)
         print("**** (Before pruning) L contains [" + str(len(L)) + "] subsets")
-        #pretty_print(L)
 
         subsets_to_remember = []
-        print("Pruning: ", end=' ')
+        num = 1
+        print("Pruning...")
         for j, subset in enumerate(L):
             combined_xpath = features_to_xpath(subset)
             # current_prec = Metrics.prec(ann_pages, combined_xpath) # unused
@@ -123,25 +123,28 @@ def learn_xslt_rule(ann_pages, unann_pages, global_features):
                     # and ((current_distance > min_dist) or (current_distance == min_dist and current_sup <= max_sup))):
                 subsets_to_remember.append(subset)
             else:
-                print("" + str(j+1) , end=' ')
+                print("" + str(j+1), end=' ')
+                if (num%10==0): print(' ')
+            num = num + 1
         print(' ')
-        print("**** (After pruning)  L contains [" + str(len(subsets_to_remember)) + "] subsets")
-        #pretty_print(subsets_to_remember)
+        print("(After pruning)  L contains [" + str(len(subsets_to_remember)) + "] subsets")
 
         after_pruning_set = set()
         for subset in subsets_to_remember:
             after_pruning_set = after_pruning_set.union(subset)
         k += 1
-        print("**** Updated C contains [" + str(len(after_pruning_set)) + "] subsets")
         C = all_k_feature_subsets(list(after_pruning_set), k)
+
+        print("Updated C contains [" + str(len(after_pruning_set)) + "] subsets")
         print('-' * 70)
+        print("**** Finished iteration " + str(k))
 
     print("**** C is empty: terminating.")
     if best_XPath is not None:
-        print("**** Best XPATH is : " + str(best_XPath) + "\n" + '-' * 100)
+        print("Best XPATH is : " + str(best_XPath) + "\n" + '-' * 100)
         return best_XPath
     else:
-        print("**** The maximum precision XPATH is : " + str(max_prec_XPath) + "\n" + '-' * 100)
+        print("The maximum precision XPATH is : " + str(max_prec_XPath) + "\n" + '-' * 100)
         return max_prec_XPath
 
 
