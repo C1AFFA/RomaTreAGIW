@@ -91,7 +91,7 @@ def prepare_golden_rule(golden_rule):
     matches = re.findall(r"(/[A-Z]+)", golden_rule_prepared)
     if matches:
         for match in matches:
-            print(match)
+            #print(match)
             golden_rule_prepared = golden_rule_prepared.replace(match, match.lower())
         return golden_rule_prepared
     else:

@@ -36,8 +36,8 @@ def main():
 
     for attr in golden_attributes[:3]:
         print("=" * 100
-              + "\nLearning attribute: " + attr.name
-              + "\n(annotated xpath:" + attr.golden_rule + ")\n"
+              + "\n[LEARNING ATTRIBUTE - " + attr.name + "]"
+              + "\n(Annotated xpath:" + attr.golden_rule + ")\n"
               + "=" * 100)
 
         # SPLIT TRAINING / VALIDATION DATA
@@ -60,7 +60,7 @@ def main():
         print("=" * 3 + " Annotated pages for Test: " + str(len(annotated_pages_paths_test)))
         print("=" * 3 + " Unannotated pages: " + str(len(unannotated_pages_paths)))
 
-        print("[STARTING TRAINING PHASE]")
+        print("\n[STARTING TRAINING PHASE - " + attr.name + "] ")
 
         # PAGE FETCH & FEATURE GENERATION
         annotated_pages_training = []
@@ -80,15 +80,35 @@ def main():
         attr.learnt_rule = learn_xslt_rule(annotated_pages_training, unannotated_pages, features_set)
         #attr.learnt_rule = "//*[@itemprop='jobTitle'][1]"
 
-        print("=" * 3 + " Learnt xpath: " + attr.learnt_rule)
-        print("=" * 3 + " Annotated xpath was " + attr.golden_rule)
+        print("=" * 3 + " Learnt xpath: " + str(attr.learnt_rule))
+        print("=" * 3 + " Annotated xpath was " + str(attr.golden_rule))
 
-        print("\n\n[STARTING TEST PHASE]")
+        print("\n[STARTING TEST PHASE - " + attr.name + "] ")
 
-        precision, recall = evaluate(annotated_pages_test, attr.learnt_rule, attr.golden_rule)
-        print("Precision for attribute " + attr.name + ": " + str(precision))
-        print("Recall for attribute " + attr.name + ": " + str(recall))
+        attr.precision, attr.recall = evaluate(annotated_pages_test, attr.learnt_rule, attr.golden_rule)
+        print("Precision for attribute " + attr.name + ": " + str(attr.precision))
+        print("Recall for attribute " + attr.name + ": " + str(attr.recall))
+        print("[LEARNING ATTRIBUTE COMPLETED - " + attr.name + "]\n\n")
 
+
+    for a in golden_attributes:
+        print(a.name, a.golden_rule, a.learnt_rule, a.precision, a.recall, sep='\t')
+
+
+    # import matplotlib.pyplot as plt
+    # from matplotlib.dates import date2num
+    # import datetime
+    #
+    # x =  np.arange(3)
+    # y = [0.99541197, 0.99433107, 0.92897727]
+    # z=[0.99118943,0.91240876,0.9650924]
+    # k=[0.94117647,0.95402299 , 0]
+    #
+    # ax = plt.subplot(111)
+    # ax.bar(x -0.2, y,width=0.2,color='b',align='center')
+    # ax.bar(x, z,width=0.2,color='g',align='center')
+    # ax.bar(x +0.2 , k,width=0.2,color='r',align='center')
+    # plt.show()
 
 if __name__ == '__main__':
     main()

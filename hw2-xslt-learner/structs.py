@@ -63,11 +63,13 @@ class AnnotatedNode:
 
 
 class Attribute:
-    def __init__(self, name, golden_rule, learnt_rule=None, ann_pages_indexes=None):
+    def __init__(self, name, golden_rule, learnt_rule=None, ann_pages_indexes=None, precision=None, recall=None):
         self.name = name
         self.golden_rule = golden_rule
         self.learnt_rule = learnt_rule
         self.ann_pages = ann_pages_indexes
+        self.precision = precision
+        self.recall = recall
 
     def __str__(self):
         return "{" + "name:" + self.name + \
