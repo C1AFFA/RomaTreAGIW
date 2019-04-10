@@ -80,3 +80,19 @@ class Attribute:
         return "{" + "name:" + self.name + \
                ", golden-rule-xpath:" + self.golden_rule + \
                ", annotated pages:" + str(self.ann_pages_indexes) + "}"
+
+
+class AprioriSubset:
+    def __init__(self, features, combined_xpath=None, precision=None, distance=None, support=None, more_than_one=None):
+        self.features = features
+        self.combined_xpath = combined_xpath
+        self.prec = precision
+        self.dist = distance
+        self.sup = support
+        self.mto = more_than_one
+
+    def __str__(self):
+        return str(self.features)
+
+    def __repr__(self):
+        return str(self.features)
