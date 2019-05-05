@@ -5,7 +5,7 @@ import os
 import glob
 import random
 import unittest
-
+import re
 '''
 This script SHOULD contain a unit test for each declared method in the project
 '''
@@ -106,7 +106,7 @@ class FeatureTest(unittest.TestCase):
         file_pages = glob.glob(os.path.join(os.path.dirname(__file__), 'test-input/unannotated-pages/*'))
         for p in file_pages:
             u_pages.append(Page(p, "//tag_sbagliato"))
-        sup = Metrics.sup(u_pages, "//header/h1")
+        sup = Metrics.sup(u_pages, "//*[@class='article highlighted']/node()[self::b]")
         print(sup)
         # TODO write a proper assert
         self.assertTrue(True)
@@ -127,6 +127,17 @@ class FeatureTest(unittest.TestCase):
         # TODO write a proper assert
         self.assertTrue(True)
 
+    def test_xpath_GR(self):
+        print("------------TESTING XPATH RULES-------------")
+        encoded_html = open("./input/pages/12.html", encoding="latin-1").read().encode('utf-8')
+        utf8_parser = etree.HTMLParser()
+        tree = etree.fromstring(encoded_html, parser=utf8_parser)
+        gr = "//*[@itemprop='birthDate']/A[1]"
+        gr = prepare_golden_rule(gr)
+        retrieved_nodes = tree.xpath(gr)
+        print(retrieved_nodes)
+        # TODO write a proper assert
+        self.assertTrue(True)
 
 if __name__ == '__main__':
     unittest.main()

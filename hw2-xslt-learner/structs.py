@@ -39,14 +39,14 @@ class Page:
     # each page is referred only in the scope of one single attribute to extract
     def __init__(self, filepath, golden_rule):
         # encoded_html = open(filepath, encoding="utf-8").read().encode('utf-8')
-        encoded_html = open(filepath).read().encode('utf-8') # use this for imdb.com
+        #encoded_html = open(filepath).read().encode('utf-8') # use this for imdb.com
+        encoded_html = open(filepath , encoding="latin-1").read().encode('utf-8')
         utf8_parser = etree.HTMLParser()
         tree = etree.fromstring(encoded_html, parser=utf8_parser)
         self.DOM = tree
         self.annotated_node = AnnotatedNode(tree, golden_rule)
         self.is_annotated = True if self.annotated_node else False
         self.features = []
-        self.features_attrib_types = ["id", "class"]
 
 
 class AnnotatedNode:
@@ -63,11 +63,13 @@ class AnnotatedNode:
 
 
 class Attribute:
-    def __init__(self, name, golden_rule, learnt_rule=None, ann_pages_indexes=None):
+    def __init__(self, name, golden_rule, learnt_rule=None, ann_pages_indexes=None, precision=None, recall=None):
         self.name = name
         self.golden_rule = golden_rule
         self.learnt_rule = learnt_rule
         self.ann_pages = ann_pages_indexes
+        self.precision = precision
+        self.recall = recall
 
     def __str__(self):
         return "{" + "name:" + self.name + \
@@ -78,3 +80,19 @@ class Attribute:
         return "{" + "name:" + self.name + \
                ", golden-rule-xpath:" + self.golden_rule + \
                ", annotated pages:" + str(self.ann_pages_indexes) + "}"
+
+
+class AprioriSubset:
+    def __init__(self, features, combined_xpath=None, precision=None, distance=None, support=None, more_than_one=None):
+        self.features = features
+        self.combined_xpath = combined_xpath
+        self.prec = precision
+        self.dist = distance
+        self.sup = support
+        self.mto = more_than_one
+
+    def __str__(self):
+        return str(self.features)
+
+    def __repr__(self):
+        return str(self.features)

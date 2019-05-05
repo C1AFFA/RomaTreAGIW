@@ -1,6 +1,7 @@
 from itertools import combinations
 from lxml import etree
 from structs import *
+import re
 
 '''
 This script provides utilities to manipulate features
@@ -84,3 +85,14 @@ def pretty_print(input_list, tab_size=3):
         elif i != len(input_list):
             print(element, end=' ')
     print(' ')
+
+def prepare_golden_rule(golden_rule):
+    golden_rule_prepared = golden_rule
+    matches = re.findall(r"(/[A-Z]+)", golden_rule_prepared)
+    if matches:
+        for match in matches:
+            #print(match)
+            golden_rule_prepared = golden_rule_prepared.replace(match, match.lower())
+        return golden_rule_prepared
+    else:
+        return golden_rule

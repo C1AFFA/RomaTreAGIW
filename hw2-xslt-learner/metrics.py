@@ -31,7 +31,7 @@ class Metrics:
                         more_than_one = True
             sup = positives / len(unannotated_pages)
 
-        return [sup , more_than_one]
+        return [sup, more_than_one]
 
     def get_selected_nodes(page_list, combined_xpath):
         nodes_retrieved = []
