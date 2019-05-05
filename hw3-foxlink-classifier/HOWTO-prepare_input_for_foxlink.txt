@@ -1,0 +1,8 @@
+1) Il dataset deve contenere:
+- products_seed.txt
+- training_set_cluster_pages.txt
+- training_set_home_pages.txt
+2) Copiare il dataset dentro sandbox_input/
+3) sh push-to-hdfs.sh
+
+Lo script cancella il contenuto di /user/maria_dev/data e lo reinizializza con il dataset in sandbox_input.
