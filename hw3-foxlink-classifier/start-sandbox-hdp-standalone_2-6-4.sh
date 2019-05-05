@@ -8,6 +8,7 @@ else
 docker pull hortonworks/sandbox-hdp-standalone:2.6.4
 docker run --name sandbox-hdp --hostname "sandbox-hdp.hortonworks.com" --privileged -d \
 -v $PWD/sandbox_input:/root/input \
+-v $PWD/sandbox_output:/root/output \
 -p 15500:15500 \
 -p 15501:15501 \
 -p 15502:15502 \
