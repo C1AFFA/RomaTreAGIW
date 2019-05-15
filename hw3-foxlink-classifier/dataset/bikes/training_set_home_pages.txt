@@ -1,23 +1,23 @@
-https://www.amazon.it
-https://www.unieuro.it
-https://www.helliot-bikes.eu
-https://www.chainreactioncycles.com
-https://www.ridewill.it
-https://www.ilovebike.it
-https://it.aliexpress.com
-https://www.bike-discount.de
-https://www.rosebikes.it
-https://www.bikegarageshop.it
-https://www.probikeshop.it
-https://www.decathlon.it
-https://www.mediaworld.it
-https://www.teespring.com
-https://www.eprice.it
-https://www.zalando.it
-https://www.kiabi.it
-https://www.asos.com
-https://www.ovs.it
-https://www.wikihow.com
+https://www.amazon.it	1
+https://www.unieuro.it	1
+https://www.helliot-bikes.eu	1
+https://www.chainreactioncycles.com	1
+https://www.ridewill.it	1
+https://www.ilovebike.it	1
+https://it.aliexpress.com	1
+https://www.bike-discount.de	1
+https://www.rosebikes.it	1
+https://www.bikegarageshop.it	1
+https://www.probikeshop.it	1
+https://www.decathlon.it	1
+https://www.mediaworld.it	1
+https://www.teespring.com	1
+https://www.eprice.it	1
+https://www.zalando.it	1
+https://www.kiabi.it	1
+https://www.asos.com	1
+https://www.ovs.it	1
+https://www.wikihow.com	0
 https://www.couchsurfing.com	0
 https://www.rightmove.co.uk	0
 https://www.realtor.com/	0

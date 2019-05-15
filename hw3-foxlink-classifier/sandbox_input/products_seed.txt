@@ -1,28 +1,88 @@
-xiaomi-mi9-se
-samsung-galaxy-a40
-sx240hs
-nex5nkb
-ms604114cefg12
-shs3216
-17764939
-1500gb
-e231b1
-dmcfx48
-t100tac1rds
-k9302032a
-asf23w9eu
-pn59d7000
-90lm00f2b01670
-un55es6500
-m4716ccba
-hafx5
-dmclx100k
-amb0055cjw20
-42t0725rfb
-dmcfz70k
-b00i5hfima
-s2ikdy010
-r9nbcu2pkgp
-crdfc
-oak3771
-v5561pg6686
+mtb
+mountain bike
+e-bike
+ciclocross
+gravel
+dirt bike
+downhill
+cross-country
+fat bike
+enduro
+triathlon
+crono
+bmx
+atala
+basso
+bianchi
+bottecchia
+brinke bike
+carrera
+cinelli
+cipollini
+colnago
+de rosa
+ducati freeduck
+fondriest
+guerciotti
+kuota
+lombardo
+olmo
+olympia
+piaggio
+pinarello
+scapin
+t red
+torpado
+wilier triestina
+cube
+focus
+ghost
+kalkhoff
+kettler
+rose
+scott
+bilenky
+bohemian bicycles
+cannondale
+felt
+fyxation
+gary fisher
+haro bikes bmx
+ibis bikes
+lemond
+mongoose
+seven
+specialized
+volagi
+argon 18
+brodie
+cervélo
+devinci
+rocky mountain
+cyfac
+decathlon
+lapierre
+look
+a-bike
+boardman
+falcon cycles
+bickerton
+gocycle e-bikes
+hetchins
+thorn cycles
+whyte
+bh
+orbea
+commençal
+giant 
+merida
+neobike
+tern
+trinx bikes
+centurion
+kuwahara
+miyata
+nagasawa
+puch
+eddy merckx cycles
+ridley
