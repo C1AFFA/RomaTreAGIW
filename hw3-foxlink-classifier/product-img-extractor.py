@@ -17,7 +17,12 @@ for image in images :
     #print(image.get_attribute("src"))
     parentSize = image.find_element_by_xpath('..').size
     if size["height"] > 0 :
-        if abs(1 - size["width"]/size["height"]) < 0.334 and prevWidth < size["width"]:
+        ratio = (size["width"]/size["height"] if size["width"] > size["height"] else size["height"]/size["width"])
+        print(ratio)
+        print(size["width"])
+        print(image.get_attribute("src"))
+        print("--------------")
+        if abs(1 - ratio) < 1.55 and prevWidth < size["width"]:
             prevWidth = size["width"]
             print(image.get_attribute("src"))
 
