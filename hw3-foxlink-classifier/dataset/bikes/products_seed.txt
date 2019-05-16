@@ -1,88 +1,12 @@
 mtb
 mountain bike
-e-bike
-ciclocross
-gravel
-dirt bike
 downhill
-cross-country
-fat bike
-enduro
 triathlon
 crono
 bmx
-atala
-basso
-bianchi
-bottecchia
-brinke bike
-carrera
-cinelli
-cipollini
-colnago
-de rosa
-ducati freeduck
-fondriest
-guerciotti
-kuota
-lombardo
-olmo
-olympia
-piaggio
-pinarello
-scapin
-t red
-torpado
-wilier triestina
-cube
-focus
-ghost
-kalkhoff
-kettler
-rose
-scott
-bilenky
-bohemian bicycles
-cannondale
-felt
-fyxation
-gary fisher
-haro bikes bmx
-ibis bikes
-lemond
-mongoose
-seven
-specialized
-volagi
-argon 18
-brodie
 cervélo
-devinci
-rocky mountain
-cyfac
-decathlon
-lapierre
-look
-a-bike
-boardman
-falcon cycles
-bickerton
-gocycle e-bikes
-hetchins
-thorn cycles
-whyte
-bh
-orbea
-commençal
-giant 
-merida
-neobike
-tern
-trinx bikes
-centurion
-kuwahara
-miyata
-nagasawa
-puch
-eddy merckx cycles
-ridley
+pinarello
+wilier
+cannondale
+specialized
+rockrider
