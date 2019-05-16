@@ -1,0 +1,12 @@
+mtb
+mountain bike
+downhill
+triathlon
+crono
+bmx
+cervélo
+pinarello
+wilier
+cannondale
+specialized
+rockrider

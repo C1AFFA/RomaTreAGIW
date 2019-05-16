@@ -1,4 +1,4 @@
-data
+# data
 input
 .ipynb_checkpoints
 .idea
@@ -6,3 +6,4 @@ venv
 __pycache__
 .keep
 hw3-foxlink-classifier/sandbox_input
+hw3-foxlink-classifier/sandbox_output
