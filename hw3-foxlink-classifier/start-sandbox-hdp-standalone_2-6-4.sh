@@ -87,6 +87,9 @@ docker run --name sandbox-hdp --hostname "sandbox-hdp.hortonworks.com" --privile
 -p 21000:21000 \
 -p 6188:6188 \
 -p 2222:22 \
-hortonworks/sandbox-hdp-standalone:2.6.4 /usr/sbin/sshd -D
+sboximg /usr/sbin/sshd -D
 fi
 docker exec -t sandbox-hdp /root/start-sandbox-hdp.sh
+
+# Change line 90 with the following if you want to use default image (reset sandbox)
+# hortonworks/sandbox-hdp-standalone:2.6.4 /usr/sbin/sshd -D
