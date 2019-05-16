@@ -7,20 +7,29 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 
 # Print metrcis for effectivness of classifier
 def print_metrics(prediction,expected_field,prediction_field,measure):
-    evaluator = MulticlassClassificationEvaluator(labelCol=expected_field, predictionCol=prediction_field, metricName=measure)
+    evaluator = MulticlassClassificationEvaluator(labelCol=expected_field,predictionCol=prediction_field,metricName=measure)
     metric = evaluator.evaluate(prediction)
     print '---------------F metric-----------------'
-    # print prediction.show()
+    print prediction.show()
     print "F1 metric = %g" % metric
     return None
 
 
 # Function to train homepage classifier if needed and to make predictions on the evaluation set
-def prepare_input_for_home_page_classifier(sc, sqlContext, training_path, evaluation_rdd, prepare_training_input, output_train_path_parquet, output_eval_path_parquet):
+def prepare_input_for_home_page_classifier(
+    sc,
+    sqlContext,
+    training_path,
+    evaluation_rdd,
+    prepare_training_input,
+    output_train_path_parquet,
+    output_eval_path_parquet
+    ):
 
     if prepare_training_input:
         train_rdd = sc.textFile(training_path).map(lambda line: line.split('\t'))
-        generate_parquet(sqlContext, train_rdd, output_train_path_parquet)
+        generate_parquet(sqlContext,
+            train_rdd, output_train_path_parquet)
 
     evaluation_rdd = evaluation_rdd.map(lambda(domain,values):(domain,1))
     generate_parquet(sqlContext, evaluation_rdd, output_eval_path_parquet)
@@ -36,7 +45,9 @@ def generate_parquet(sqlContext, rdd_data, ouput_path):
     return None
 
 # Function to train custer pages classifier if needed and to make predictions on the evaluation set
-def prepare_input_for_cluster_page_classifier(sc, sqlContext, training_path, evaluation_rdd, prepare_training_input, output_train_path_parquet, output_eval_path_parquet):
+def prepare_input_for_cluster_page_classifier(
+    sc,sqlContext,training_path,evaluation_rdd,prepare_training_input,
+    output_train_path_parquet,output_eval_path_parquet):
 
     if prepare_training_input:
         train_rdd = sc.textFile(training_path).map(lambda line: line.split('\t'))

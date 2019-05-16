@@ -9,14 +9,18 @@ import classifier_utils
 
 
 #Multinomial Naive Bayes classifier based on keyword
-def keywords_naive_bayes_classifier(sc, training_path, number_of_features, evaluation_rdd, prepare_training_input, train_path_parquet, eval_path_parquet, save, path_to_save, classification_type):
+def keywords_naive_bayes_classifier(
+        sc,training_path,number_of_features,evaluation_rdd,prepare_training_input,train_path_parquet,
+        eval_path_parquet,save,path_to_save,classification_type):
 
     sqlContext = SQLContext(sc)
 
-    if classification_type == 'home_pages':
-        classifier_utils.prepare_input_for_home_page_classifier(sc, sqlContext, training_path, evaluation_rdd, prepare_training_input, train_path_parquet, eval_path_parquet)
-    elif classification_type == 'cluster_pages':
-        classifier_utils.prepare_input_for_cluster_page_classifier(sc, sqlContext, training_path, evaluation_rdd, prepare_training_input, train_path_parquet, eval_path_parquet)
+    # if classification_type == 'home_pages':
+    #     classifier_utils.prepare_input_for_home_page_classifier(
+    #         sc,sqlContext,training_path,evaluation_rdd,prepare_training_input,train_path_parquet,eval_path_parquet)
+    # elif classification_type == 'cluster_pages':
+    #     classifier_utils.prepare_input_for_cluster_page_classifier(
+    #         sc,sqlContext,training_path,evaluation_rdd,prepare_training_input,train_path_parquet,eval_path_parquet)
 
     schemaTrain = sqlContext.read.load(train_path_parquet)
     schemaEval = sqlContext.read.load(eval_path_parquet)

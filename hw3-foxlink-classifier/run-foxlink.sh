@@ -75,7 +75,6 @@ launch() {
     source /etc/environment && \
     source activate base && \
     spark-submit --py-files utils.zip foxlink.py"
-  # docker exec -t sandbox-hdp /bin/bash -c " spark-submit --py-files /root/utils.zip /root/foxlink.py"
   echo "================="
 }
 launch
