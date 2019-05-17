@@ -20,9 +20,9 @@ https://www.aliexpress.com	1
 https://www.unieuro.it	1
 https://www.mediaworld.it	1
 https://www.eprice.it	1
-https://www.apple.it 1
-https://www.razer.com 1
-https://www.dell.com 1
+https://www.apple.it	1
+https://www.razer.com	1
+https://www.dell.com	1
 https://www.zalando.it	1
 https://www.teespring.com	1
 https://www.kiabi.it	1
@@ -67,7 +67,7 @@ https://www.wfsgi.org	0
 https://www.bikesnotbombs.org	0
 https://www.bikeradar.it	0
 https://www.bikeitalia.it	0
-https://www.red-live.it/
+https://www.red-live.it	0
 https://www.federciclismo.it	0
 https://www.fiab-onlus.it	0
 https://www.mymovies.it	0

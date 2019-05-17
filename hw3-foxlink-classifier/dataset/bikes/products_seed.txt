@@ -1,13 +1,13 @@
-cube aerium c68
-coppi spk01
-glory advanced
-bianchi methanol fs
-helliot bikes sport 01
-pinarello dogma f10
-bikesport parallax 26
-wilier triestina gtr
-cannondale supersix evo
-specialized tarmac 2017
-helliot bikes sport 01
-rockrider 520
-shimano btt 26
+cube_aerium_c68
+coppi_spk01
+glory_advanced
+bianchi_methanol_fs
+helliot_bikes_sport_01
+pinarello_dogma_f10
+bikesport_parallax_26
+wilier_triestina_gtr
+cannondale_supersix_evo
+specialized_tarmac_2017
+helliot_bikes_sport_01
+rockrider_520
+shimano_btt_26
