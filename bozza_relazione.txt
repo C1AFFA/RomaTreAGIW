@@ -1,4 +1,13 @@
 
+IDEA
+
+Il problema da affrontare era quello di dover capire come distinguere se una pagina di un prodotto appartenesse o meno ad una specifica categoria. L'idea è stata quella di replicare il modo in cui un osservatore umano riesca a fare la distinzione.
+Quindi, la prima cosa che ci permette di riconoscere un prodotto su una pagina di ecommerce è senza dubbio la sua immagine. Pensandoci è anche il modo più agnostico. Il classificatore utilizzato da foxlink utilizza un approccio Bayesiano basato su keywords.
+L'approccio è senza dubbio efficiente ed efficace, probabilmente il più intelligente ed indicato. Tuttavia dipende dal testo e dalle parole chiave, quindi dalla lingua in cui le pagine sono scritte. Inoltre per essere efficace necessita un dataset di addestramento 
+da etichettare manualmente, cosa che vorremmo evitare. 
+Sfruttando quindi la conoscenza di una rete neurale complessa come InceptionResnetV2 addestrata sul dataset imagenet da Google, l'idea è stata quella di replicare il processo di riconoscimento agnostico attraverso l'immagine addestrando un semplice classificatore costituito da una rete neurale fully connected a due layer posta in cascata al modello addestrato dal colosso californiano. Questo ci permette di poter addestrare il nostro nuovo classificatore con pochissime immagini (un migliaio) applicando il principio di "transfer learning".
+
+
 
 
 Abbiamo addestrato il modello su un training set di 1k immagini, di cui 500 appartenenti alla verticale (biciclette) e altre 500 raffiguranti prodotti generici. 
