@@ -14,7 +14,7 @@ class ILDA():
         self.height = height
         self.batch_size = batch_size
         self.train_generator, self.val_generator, self.ntrain, self.nval, self.history = None, None, None, None, None
-
+        print("- Starting ILDA initialization")
         conv_base = InceptionResNetV2(weights='imagenet', include_top=False, input_shape=(self.width, self.height, 3))
         print("- InceptionResNetV2 loaded.")
         model = models.Sequential()
@@ -26,7 +26,7 @@ class ILDA():
         conv_base.trainable = False     # Freeze the
         print("- Deeper layers frozen.")
         model.compile(loss='binary_crossentropy', optimizer=optimizers.RMSprop(lr=2e-5), metrics=['acc'])
-        print("- ILDA inizialized.")
+        print("- ILDA initialized.")
         self.model = model
 
     def prepare_input(self, validation_split=0.1):
@@ -49,25 +49,49 @@ class ILDA():
         random.shuffle(test_imgs)
         x_test, y_test = read_and_process_image(self.vertical, test_imgs, self.width, self.height)
         test_datagen = ImageDataGenerator(rescale=1. / 255)
-        positives = 0
+
+        true_positives = 0
+        true_negatives = 0
+        false_positives = 0
+        false_negatives = 0
+
         cont = 0
         predicted = []
+
         print()
         print("- Starting prediction on Test set")
-        for batch, by in test_datagen.flow(x, y, batch_size=1):
+        print("- Test datapoints: "+str(len(x_test)))
+        print("- Labels datapoints: "+str(len(y_test)))
+        for batch, by in test_datagen.flow(x_test, y_test, batch_size=1):
             pred = self.model.predict(batch)
+
+
             if pred > 0.5 and by == 1:
-                positives += 1
+                true_negatives += 1
             elif pred <= 0.5 and by == 0:
-                positives += 1
+                true_positives += 1
+            elif pred < 0.5 and by == 1:
+                false_positives += 1
+            elif pred >= 0.5 and by == 0:
+                false_negatives += 1
+
             cont += 1
+            predicted.append(pred[0][0])
             if cont % len(test_imgs) == 0:
                 break
-            predicted.append(pred)
+
             print("", end=".")
         print()
-        accuracy = positives / len(test_imgs)
-        return accuracy, predicted, y
+
+        accuracy = (true_positives+true_negatives)/len(test_imgs)
+
+        predicted = np.asarray(predicted).reshape(len(predicted), 1)
+        truth = np.asarray(y_test).reshape(len(y_test), 1)
+        results = np.append(truth, predicted, axis=1)
+        precision = true_positives/(true_positives+false_positives)
+        recall = true_positives/(true_positives+false_negatives)
+
+        return precision, recall, accuracy, results
 
     # def show_prediction_example(self):
 
