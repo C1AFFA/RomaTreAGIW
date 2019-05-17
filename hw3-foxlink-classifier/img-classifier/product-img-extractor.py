@@ -1,4 +1,5 @@
 from extractor import extractor
+import pandas as pd
 
 df = pd.read_parquet("output__bikes/classifier/evaluation_cluster_pages.parquet")
 df = df.loc[df['cluster_label'] == "products"]["referring_url"]

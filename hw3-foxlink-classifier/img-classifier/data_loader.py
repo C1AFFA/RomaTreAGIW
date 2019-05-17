@@ -44,7 +44,8 @@ def read_and_process_image(vertical, list_of_images, nrows, ncolumns):
 
     return X, y
 
-
+# A function to get data generator to use for training the model. 
+# Every time a data point is passed to the model, the generator applies some transformations to augment the dataset input diversity
 def get_data_generators(train_set, labels, validation_split, bs):
     x_train, x_val, y_train, y_val = train_test_split(train_set, labels, test_size=validation_split, random_state=2)
     ntrain = len(x_train)
