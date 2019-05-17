@@ -2,7 +2,6 @@ from keras.applications import InceptionResNetV2
 from keras import layers
 from keras import models
 from keras import optimizers
-import numpy as np
 from data_loader import *
 
 
@@ -64,7 +63,6 @@ class ILDA():
         print("- Labels datapoints: "+str(len(y_test)))
         for batch, by in test_datagen.flow(x_test, y_test, batch_size=1):
             pred = self.model.predict(batch)
-
 
             if pred > 0.5 and by == 1:
                 true_negatives += 1

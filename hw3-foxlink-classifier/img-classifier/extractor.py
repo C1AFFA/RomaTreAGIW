@@ -2,8 +2,6 @@ from selenium import webdriver
 import time
 import math
 
-
-
 class Extractor():
     def __init__(self , ratio = 1.55):
         options = webdriver.ChromeOptions()
@@ -16,7 +14,6 @@ class Extractor():
     def extract(self, page):
         self.current_page_url = page
         self.driver.get(self.current_page_url)
-        #aspetto che si carichi il JS
         time.sleep(3)
         images = self.driver.find_elements_by_tag_name('img')
         half = math.floor(len(images))

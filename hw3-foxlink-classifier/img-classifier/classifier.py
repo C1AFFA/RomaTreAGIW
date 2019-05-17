@@ -15,6 +15,7 @@ data = open("./../dataset/bikes/training_set_cluster_pages.txt")
 
 extractor = Extractor()
 cbreak = 0
+
 for i, line in enumerate(data):
     #url = line
     url , label = line.strip().split("\t")
