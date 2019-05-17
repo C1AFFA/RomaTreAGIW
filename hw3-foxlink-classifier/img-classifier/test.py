@@ -1,6 +1,6 @@
 from model import *
 
-model = ILDA("bike", "./bikes-dataset")
+model = ILDA("bike", "./datasets/bikes-dataset")
 model.load()
 accuracy, predicted, truth = model.test_model()
 

@@ -76,7 +76,7 @@ class ILDA():
 
     def save(self, version="1"):
         # os.makedirs('saved_model', exist_ok=True)
-        self.model.save_weights('./saved_model/ILDA-v%s.h5' % version)
+        self.model.save_weights('./saved-models/ILDA-v%s.h5' % version)
 
     def load(self, version="1"):
-        self.model.load_weights("./saved_model/ILDA-v%s.h5" % version)
+        self.model.load_weights("./saved-models/ILDA-v%s.h5" % version)
