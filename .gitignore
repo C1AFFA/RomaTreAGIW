@@ -2,6 +2,7 @@
 input
 .ipynb_checkpoints
 .idea
+.vscode
 venv
 __pycache__
 .keep

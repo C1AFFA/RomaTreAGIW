@@ -1,0 +1,21 @@
+
+
+
+Abbiamo addestrato il modello su un training set di 1k immagini, di cui 500 appartenenti alla verticale (biciclette) e altre 500 raffiguranti prodotti generici. 
+- Tutte le immagini sono state pescate da google immagini e google shopping, per essere sicuri che provenissero da siti di ecommerce e raffigurassero quindi dei prodotti in vendita.
+- L'estrazione delle immagini è avvenuta automaticamente grazie ad un plugin di chrome <imageDownloader>, quindi abbiamo limitato il costo di preparazione del dataset. 
+
+PREPARAZIONE DEL DATASET
+- Abbiamo un modo per scaricare automaticamente immagini: risolto utilizzando un plugin
+- Abbiamo cercato il modo più efficiente per avere immagini appartenenti a prodotti sulla stessa pagina: risolto utilizzando google immagini e google shopping per avere esempi variegati di prodotti. In particolare, abbiamo usato come query un sito di ecommerce che avesse molti prodotti indicizzati (amazon, mediaworld, aliexpress, gearbest etc...)
+- Abbiamo processato le immagini scaricate con uno script ad hoc, che le converte tutte in jpeg (il resize non è importante perchè ci pensa il modello) e le rinomina in base alla verticale scelta suddividendole in due categorie: "bikes"-"generic"
+- L'intero processo può richiedere max 20min per creare un dataset di 1,1k immagini (1k training - 100 test)
+(Tempo speso per automatizzare questo processo: un paio d'ore)
+
+
+    - trivia: le immagini sono variegate e non hanno tutte lo sfondo bianco.
+
+
+test serve per testare il modello che abbiamo addestrato utilizzando il test set.
+
+le parole chiave sono 2: 
