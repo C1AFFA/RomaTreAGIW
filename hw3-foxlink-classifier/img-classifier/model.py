@@ -23,7 +23,7 @@ class ILDA():
         model.add(layers.Dense(256, activation='relu'))
         model.add(layers.Dense(1, activation='sigmoid'))  # Sigmoid function at the end because we have just two classes
         print("- Fully connected layer added.")
-        conv_base.trainable = False     # Freeze the
+        conv_base.trainable = False     # Freeze the training on imagenet
         print("- Deeper layers frozen.")
         model.compile(loss='binary_crossentropy', optimizer=optimizers.RMSprop(lr=2e-5), metrics=['acc'])
         print("- ILDA initialized.")
