@@ -32,7 +32,6 @@ class ILDA():
     def prepare_input(self, validation_split=0.1):
         train_imgs = load_data(self.dataset_dir, self.vertical, prepare_test=False)
         train_set, labels = read_and_process_image(self.vertical, train_imgs, self.width, self.height)
-
         self.train_generator, self.val_generator, self.ntrain, self.nval = get_data_generators(train_set,
                                                                                                labels,
                                                                                                validation_split,
@@ -49,8 +48,6 @@ class ILDA():
         test_imgs = load_data(self.dataset_dir, self.vertical, prepare_test=True)
         random.shuffle(test_imgs)
         x_test, y_test = read_and_process_image(self.vertical, test_imgs, self.width, self.height)
-        x = np.array(x_test)
-        y = np.array(y_test)
         test_datagen = ImageDataGenerator(rescale=1. / 255)
         positives = 0
         cont = 0

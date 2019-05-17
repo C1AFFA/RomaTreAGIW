@@ -1,9 +1,9 @@
-import cv2
+import cv2 as cv2
 from keras.preprocessing.image import ImageDataGenerator
 from sklearn.model_selection import train_test_split
 import os
 import random
-
+import numpy as np
 
 def load_data(dataset_dir, vertical, prepare_test=False):
     if not prepare_test:
@@ -38,6 +38,9 @@ def read_and_process_image(vertical, list_of_images, nrows, ncolumns):
             y.append(1)
         elif vertical in image:
             y.append(0)
+
+    X = np.array(X)
+    y = np.array(y)
 
     return X, y
 
