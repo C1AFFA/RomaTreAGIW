@@ -1,12 +1,13 @@
-mtb
-mountain bike
-downhill
-triathlon
-crono
-bmx
-cervélo
-pinarello
-wilier
-cannondale
-specialized
-rockrider
+cube aerium c68
+coppi spk01
+glory advanced
+bianchi methanol fs
+helliot bikes sport 01
+pinarello dogma f10
+bikesport parallax 26
+wilier triestina gtr
+cannondale supersix evo
+specialized tarmac 2017
+helliot bikes sport 01
+rockrider 520
+shimano btt 26
