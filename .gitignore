@@ -7,3 +7,5 @@ __pycache__
 .keep
 hw3-foxlink-classifier/sandbox_input
 hw3-foxlink-classifier/sandbox_output
+hw3-foxlink-classifier/img-classifier/datasets
+hw3-foxlink-classifier/img-classifier/saved-models
