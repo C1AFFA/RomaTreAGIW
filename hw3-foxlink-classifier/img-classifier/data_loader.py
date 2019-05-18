@@ -31,6 +31,7 @@ def read_and_process_image(vertical, list_of_images, nrows, ncolumns):
     y = []  # labels
 
     for image in list_of_images:
+        print("- Loading: "+image)
         X.append(cv2.resize(cv2.imread(image, cv2.IMREAD_COLOR), (nrows, ncolumns),
                             interpolation=cv2.INTER_CUBIC))  # Read the image
         # get the labels

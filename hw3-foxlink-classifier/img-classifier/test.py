@@ -1,8 +1,8 @@
 from model import *
 import pandas as pd
 
-model = ILDA("bike", "./datasets/bikes-dataset")
-#model = ILDA("bike", "./input")
+#model = ILDA("bike", "./datasets/bikes-dataset")
+model = ILDA("bike", "./input")
 model.load()
 precision, recall, accuracy, results = model.test_model()
 

@@ -10,24 +10,33 @@ from model import *
 vertical = "bike"
 dataset_dir = "./input"
 
-data = open("./../dataset/bikes/training_set_cluster_pages.txt")
+#data = open("./../dataset/bikes/training_set_cluster_pages.txt")
+data = open("./../test_set_cluster_pages.txt")
 
 
 extractor = Extractor()
 cbreak = 0
 
 for i, line in enumerate(data):
-    #url = line
-    url , label = line.strip().split("\t")
-    name = vertical
-    if label == "0":
-        name = "generic"
-    extractor.extract(url)
-    print(extractor.url_img_extracted)
-    urllib.request.urlretrieve(extractor.url_img_extracted, ("%s/test/%s%s.jpg" % (dataset_dir, name, i)))
+    if cbreak > 29:
+        #url = line
+        url, label = line.strip().split("\t")
+        name = vertical
+        if label == "0":
+            name = "generic"
+        extractor.extract(url)
+        print(str(cbreak)+": "+url)
+        print(extractor.url_img_extracted)
+
+        try:
+            urllib.request.urlretrieve(extractor.url_img_extracted, ("%s/test/%s%s.jpg" % (dataset_dir, name, i)))
+
+        except:
+            print("skipping: forbidden")
+
     cbreak += 1
-    if cbreak > 40 :
-        break
+        # if cbreak > 40:
+        #     break
     
 extractor.stop()
 

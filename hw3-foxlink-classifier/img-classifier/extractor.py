@@ -21,7 +21,7 @@ class Extractor():
         prevWidth = 0
         for image in images :
             size = image.size
-            if size["height"] > 0 :
+            if size["height"] > 0 and size["width"] > 0:
                 ratio = (size["width"]/size["height"] if size["width"] > size["height"] else size["height"]/size["width"])
                 if abs(1 - ratio) < self.ratio and prevWidth < size["width"]:
                     prevWidth = size["width"]
