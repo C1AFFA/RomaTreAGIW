@@ -12,6 +12,22 @@ def print_metrics(prediction,expected_field,prediction_field,measure):
     print '---------------F metric-----------------'
     print prediction.show()
     print "F1 metric = %g" % metric
+
+    evaluatorA = MulticlassClassificationEvaluator(labelCol=expected_field, predictionCol=prediction_field, metricName="accuracy")
+    accuracy = evaluatorA.evaluate(prediction)
+    print '---------------Accuracy-----------------'
+    print "Accuracy = %g" % accuracy
+     
+    evaluatorwp = MulticlassClassificationEvaluator(labelCol=expected_field, predictionCol=prediction_field, metricName="weightedPrecision")
+    wp = evaluatorwp.evaluate(prediction)
+    print '---------------Precision-----------------'
+    print "weightedPrecision = %g" % wp
+     
+    evaluatorwr = MulticlassClassificationEvaluator(labelCol=expected_field, predictionCol=prediction_field, metricName="weightedRecall")
+    wr = evaluatorwr.evaluate(prediction)
+    print '---------------Recall-----------------'
+    print "weightedRecall = %g" % wr
+
     return None
 
 
