@@ -1,0 +1,21 @@
+- Installazione di foxlink e risoluzione dei suoi vari problemi
+- Realizzazione di script ad hoc per l'interazione, gestione file, avvio automatico di foxlink
+- Annotazione manuale del set di training e di test
+- Run completa di Foxlink
+- Identificazione dei set in ingresso al product-classifier
+- Analisi dei set identificati con pandas
+- Isolamento del classificatore naive-bayes
+- Modifica del modulo per saltare la preparazione e per stampare altre metriche di valutazione
+- Script di replica del parquet in ingresso al classificatore per generare un test set coerente dal test set annotato precedentemente
+- Run di foxlink con soltanto il classificatore
+
+- Modello per estrazione dell'immagine prodotto da una pagina prodotto
+
+- Sperimentazione con InceptionResNetV2
+- Costruzione del modello di classificazione basato su Tranfer Learning
+- Costruzione del data loader per il training con data-augmentation
+- Addestramenti con batch size diversi
+- Addestramenti su numero di epoche maggiore (fino a 200)
+- Valutazione su validation set (split implicito) e test set
+
+- Confronto critico dei risultati dei due classificatori
