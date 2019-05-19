@@ -141,7 +141,7 @@ class ILDA():
             else:
                 text_labels.append('a bike')
             plt.subplot(5 / columns + 1, columns, i + 1)
-            plt.title('This is ' + text_labels[i])
+            plt.title('This is ' + text_labels[i]+" ("+str(by)+")")
             imgplot = plt.imshow(batch[0])
             i += 1
             if i % 10 == 0:
