@@ -17,22 +17,19 @@ f.close()
 conf = SparkConf().setAppName('foxlink')
 sc = SparkContext(conf=conf)
 
-# we don't need this shit
-# sqlContext = SQLContext(sc)
-# referring_url_metrics_path = config['linkage_analysis']['path_to_save_referring_url_metrics'] + "/part-*"
-# referring_url_metrics = sqlContext.read.parquet(referring_url_metrics_path).rdd
+# we run classifier without using an RDD.
+# we also skip parquet generation for the training set, because we already provided
+# both parquets (training and evalutaion) on the HDFS path.
 
 #cluster pages classifier
 category_clusters = naive_bayes_classifier.keywords_naive_bayes_classifier(
   sc,
   config['cluster_pages_classifier']['training_path_cluster_classifier'], 
   int(math.pow(2,int(config['cluster_pages_classifier']['number_of_features_exponent']))),
-  None, # was referring_url_metrics, we don't need it
-  config['cluster_pages_classifier']['prepare_training_input_cluster_page'],
   config['cluster_pages_classifier']['ouput_train_cluster_page_path_parquet'],
   config['cluster_pages_classifier']['output_eval_cluster_page_path_parquet'],
   config['cluster_pages_classifier']['save_cluster_page_evaluation'],
-  config['cluster_pages_classifier']['path_to_save_cluster_pages'],
-  'cluster_pages')
+  config['cluster_pages_classifier']['path_to_save_cluster_pages']
+  )
 
 sc.stop()

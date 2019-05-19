@@ -6,26 +6,26 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 
 
 # Print metrcis for effectivness of classifier
-def print_metrics(prediction,expected_field,prediction_field,measure):
-    evaluator = MulticlassClassificationEvaluator(labelCol=expected_field,predictionCol=prediction_field,metricName=measure)
-    metric = evaluator.evaluate(prediction)
-    print '---------------F metric-----------------'
-    print prediction.show()
-    print "F1 metric = %g" % metric
-
+def print_metrics(prediction,expected_field,prediction_field):
+    evaluator = MulticlassClassificationEvaluator(labelCol=expected_field,predictionCol=prediction_field,metricName="f1")
+    f1measure = evaluator.evaluate(prediction)
+   
     evaluatorA = MulticlassClassificationEvaluator(labelCol=expected_field, predictionCol=prediction_field, metricName="accuracy")
     accuracy = evaluatorA.evaluate(prediction)
-    print '---------------Accuracy-----------------'
-    print "Accuracy = %g" % accuracy
      
     evaluatorwp = MulticlassClassificationEvaluator(labelCol=expected_field, predictionCol=prediction_field, metricName="weightedPrecision")
     wp = evaluatorwp.evaluate(prediction)
-    print '---------------Precision-----------------'
-    print "weightedPrecision = %g" % wp
      
     evaluatorwr = MulticlassClassificationEvaluator(labelCol=expected_field, predictionCol=prediction_field, metricName="weightedRecall")
     wr = evaluatorwr.evaluate(prediction)
-    print '---------------Recall-----------------'
+   
+    print '---------------PREDICTION-----------------'
+    print prediction.show()
+
+    print '---------------METRICS-----------------'
+    print "F1 measure = %g" % f1measure
+    print "Accuracy = %g" % accuracy
+    print "weightedPrecision = %g" % wp
     print "weightedRecall = %g" % wr
 
     return None

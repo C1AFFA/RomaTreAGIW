@@ -10,8 +10,13 @@ import classifier_utils
 
 #Multinomial Naive Bayes classifier based on keyword
 def keywords_naive_bayes_classifier(
-        sc,training_path,number_of_features,evaluation_rdd,prepare_training_input,train_path_parquet,
-        eval_path_parquet,save,path_to_save,classification_type):
+        sc,
+        training_path,
+        number_of_features,
+        train_path_parquet,
+        eval_path_parquet,
+        save,
+        path_to_save):
 
     sqlContext = SQLContext(sc)
 
@@ -36,14 +41,23 @@ def keywords_naive_bayes_classifier(
     model = pipeline.fit(schemaTrain)
     pr = model.transform(schemaEval)
 
-    classifier_utils.print_metrics(pr,'label','prediction','f1')
+    classifier_utils.print_metrics(pr,'label','prediction')
 
     output = pr.rdd
 
-    if classification_type == 'home_pages':
-        output = output.filter(lambda row: row.prediction == 1.0)
-    if classification_type == 'cluster_pages':
-        output = output.map(lambda row: {'url':row.url,'cluster_label':row.cluster_label,'referring_url':row.referring_url,'domain':row.domain})
+    # if classification_type == 'home_pages':
+    #     output = output.filter(lambda row: row.prediction == 1.0)
+    # if classification_type == 'cluster_pages':
+    output = output.map(lambda row: {
+        'url':row.url,
+        'cluster_label':row.cluster_label,
+        'probability':row.probability,
+        'prediction':row.prediction,
+        'pred':row.pred
+        })
+
+
+    # |category|cluster_label|domain|referring_url|text|url|label|words|features| rawPrediction|probability|prediction|pred
 
     rdd_utils.save_rdd(output,save,path_to_save)
 
