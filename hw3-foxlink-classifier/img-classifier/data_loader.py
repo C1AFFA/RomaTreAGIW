@@ -31,7 +31,6 @@ def read_and_process_image(vertical, list_of_images, nrows, ncolumns):
     y = []  # labels
 
     for image in list_of_images:
-        print("- Loading: "+image)
         X.append(cv2.resize(cv2.imread(image, cv2.IMREAD_COLOR), (nrows, ncolumns),
                             interpolation=cv2.INTER_CUBIC))  # Read the image
         # get the labels
@@ -45,7 +44,8 @@ def read_and_process_image(vertical, list_of_images, nrows, ncolumns):
 
     return X, y
 
-# A function to get data generator to use for training the model. 
+# A function to get data generator to use for training the model.
+
 # Every time a data point is passed to the model, the generator applies some transformations to augment the dataset input diversity
 def get_data_generators(train_set, labels, validation_split, bs):
     x_train, x_val, y_train, y_val = train_test_split(train_set, labels, test_size=validation_split, random_state=2)
@@ -67,3 +67,14 @@ def get_data_generators(train_set, labels, validation_split, bs):
     val_generator = val_datagen.flow(x_val, y_val, batch_size=bs)
 
     return train_generator, val_generator, ntrain, nval
+
+
+def smooth_plot(points, factor=0.7):
+    smooth_pts = []
+    for point in points:
+        if smooth_pts:
+            previous = smooth_pts[-1]
+            smooth_pts.append(previous * factor + point * (1 - factor))
+        else:
+            smooth_pts.append(point)
+    return smooth_pts

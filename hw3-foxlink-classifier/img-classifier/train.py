@@ -1,7 +1,7 @@
 from model import *
 
-model = ILDA("bike", "./datasets/bikes-dataset")
+model = ILDA("bike", "./bikes-dataset")
 model.prepare_input()
-model.train(20)
-model.save(2)
+model.train(150)
+model.save()
 

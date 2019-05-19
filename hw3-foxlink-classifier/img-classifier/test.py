@@ -1,12 +1,14 @@
 from model import *
 import pandas as pd
 
-#model = ILDA("bike", "./datasets/bikes-dataset")
+#model = ILDA("bike", "./bikes-dataset")
 model = ILDA("bike", "./input")
-model.load()
+model.load("2")
+model.save_test_examples()
 precision, recall, accuracy, results = model.test_model()
 
 
-print("Precision on Test set: "+str(precision))
-print("Recall on Test set: "+str(recall))
-print("Accuracy on Test set: "+str(accuracy))
+print("- Precision\t"+str(precision))
+print("- Recall\t"+str(recall))
+print("- Accuracy\t"+str(accuracy))
+print("- F1 Score\t"+str(2*precision*recall/(precision+recall)))
