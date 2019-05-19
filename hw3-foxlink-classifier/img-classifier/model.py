@@ -145,9 +145,9 @@ class ILDA():
             imgplot = plt.imshow(batch[0])
             i += 1
             if i % 10 == 0:
+                plt.savefig('./output/test_samples.png')
                 break
         plt.show()
-        plt.savefig('./output/test_samples.png')
 
     def save(self, version="1"):
         # os.makedirs('saved_model', exist_ok=True)

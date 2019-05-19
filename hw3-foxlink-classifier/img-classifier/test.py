@@ -3,7 +3,7 @@ import pandas as pd
 
 #model = ILDA("bike", "./bikes-dataset")
 model = ILDA("bike", "./input")
-model.load("2")
+model.load("3")
 model.save_test_examples()
 precision, recall, accuracy, results = model.test_model()
 

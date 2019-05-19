@@ -28,3 +28,13 @@ PREPARAZIONE DEL DATASET
 test serve per testare il modello che abbiamo addestrato utilizzando il test set.
 
 le parole chiave sono 2: 
+
+
+TEST SET:
+Per testare sullo stesso dataset i due classificatori abbiamo ne abbiamo creato uno poiché quello che arrivava in ingresso al modulo dai passi precedenti non era soddisfacente, in quanto ci saremmo aspettati soltanto, o quasi, pagine di prodotti.
+Abbiamo annotato un centinaio di pagine partendo da google shopping, equamente distribuiti tra prodotti appartenenti alla verticale e non.
+Abbiamo volutamente inserito nel set delle pagine inerenti alla sfera semantica della verticale ma non appartenenti alla verticale stessa (ad esempio, manubri di biciclette, ruote), coerentemente con quanto foxlink stesso dovrebbe generare dai passi precedenti; questo ci ha permesso di mettere in difficoltà i due classificatori.
+Infatti, in questi casi, la nostra ipotesi è che il bayesiano possa trova pagine con keyword frequenti molto attinenti alla verticale essendo messo a dura prova; allo stesso tempo, il nostro classificatore può essere messo in crisi riconoscendo parti di biciclette.
+
+Infatti, dopo 80 epoche di addestramento la precision non era altissima e gli errori più grossolani commessi, ispezionando manualmente i risultati ottenuti, erano proprio dovuti a questo tipo di pagine; L'immagine di una ruota di bicicletta veniva classificata come bicicletta, ad esempio.
+Abbiamo valutato l'idea di inserire questo genere di informazioni del training set, somministrando quindi nell'addestramento pagine di questo tipo; tuttavia abbiamo prima provato ad addestrare il modello per più epoche; Con 200 epoche siamo arrivati ad una precision del 90% circa.
