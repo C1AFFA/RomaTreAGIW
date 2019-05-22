@@ -1,0 +1,28 @@
+
+F1
+- ilda(200) 0.957
+- ilda(150) 0.942
+- ilda(80)  0.860
+- nb(pro)   0.638
+- nb(bad)   0.609
+
+ACCURACY
+- ilda(200) 0.953
+- ilda(150) 0.938
+- ilda(80)  0.830
+- nb(pro)   0.662
+- nb(bad)   0.65
+
+PRECISION
+- ilda(200) 0.918
+- ilda(150) 0.891
+- ilda(80)  0.755
+- nb(pro)   0.750
+- nb(bad)   0.798
+
+RECALL
+- ilda(200) 1.0
+- ilda(150) 1.0
+- ilda(80)  1.0
+- nb(pro)   0.662
+- nb(bad)   0.65
